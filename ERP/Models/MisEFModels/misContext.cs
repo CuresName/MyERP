@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace 南岩ERP.MisEFModels;
+namespace ERP.MisEFModels;
 
 public partial class misContext : DbContext
 {

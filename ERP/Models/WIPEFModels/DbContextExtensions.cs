@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace 南岩ERP.Models.WIPEFModels
+namespace ERP.Models.WIPEFModels
 {
     public static class DbContextExtensions
     {

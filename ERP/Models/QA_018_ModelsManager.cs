@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public class QA_018_ModelsManager
     {

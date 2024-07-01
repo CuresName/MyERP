@@ -1,5 +1,5 @@
 ﻿#nullable disable
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public class ViewModel
     {

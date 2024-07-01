@@ -3,15 +3,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using «n©¥ERP.Controllers;
-using «n©¥ERP.Filter;
-using «n©¥ERP.Models;
-using «n©¥ERP.±Ð¨|°V½mEFModels;
-using «n©¥ERP.MisEFModels;
-using «n©¥ERP.TableTest;
-using «n©¥ERP.Models.WIPEFModels;
+using ERP.Controllers;
+using ERP.Filter;
+using ERP.Models;
+<<<<<<< HEAD
+using ERP.EFModels;
+=======
+using ERP.æ•™è‚²è¨“ç·´EFModels;
+>>>>>>> 57a69941cd5a539dc541b21b1090b20fae847344
+using ERP.MisEFModels;
+using ERP.TableTest;
+using ERP.Models.WIPEFModels;
 using NLog.Web;
-using «n©¥ERP.TESTModels.TESTEFModels;
+using ERP.TESTModels.TESTEFModels;
 using System.Net;
 
 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
@@ -19,37 +23,68 @@ ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProt
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddLogging(logging =>
-{  //±NNLogµù¥U¨ì¦¹±M®×¤º
+<<<<<<< HEAD
+{  //Register NLog into this project
     logging.ClearProviders();
-    //³]©wlog¬ö¿ýªº³Ì¤pµ¥¯Å
+    //setting log minimunLevel 
+=======
+{  //å°‡NLogè¨»å†Šåˆ°æ­¤å°ˆæ¡ˆå…§
+    logging.ClearProviders();
+    //è¨­å®šlogç´€éŒ„çš„æœ€å°ç­‰ç´š
+>>>>>>> 57a69941cd5a539dc541b21b1090b20fae847344
     logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-}); 
+});
 builder.Host.UseNLog();
 
 builder.Services.AddControllersWithViews();
 
-//¨Ï¨ä¥LController¥i¥H¨Ï¥Î¸Ócontrollerªºfunction
+<<<<<<< HEAD
+//Register Controller into this project
+=======
+//ä½¿å…¶ä»–Controllerå¯ä»¥ä½¿ç”¨è©²controllerçš„function
+>>>>>>> 57a69941cd5a539dc541b21b1090b20fae847344
 builder.Services.AddScoped<DocumentController>();
 builder.Services.AddScoped<UserController>();
 
-builder.Services.AddDbContext<nanoerpEntities>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("NanoEntity")));//³s±µ¸ê®Æ®w
-builder.Services.AddDbContext<nanodevContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("Nanodev")));//³s±µ¸ê®Æ®w
+builder.Services.AddDbContext<erpEntities>(option =>
+<<<<<<< HEAD
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBEntity")));//Connect SQL
+builder.Services.AddDbContext<devContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBdev")));//Connect SQL
 builder.Services.AddDbContext<misContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("Nanodev")));//³s±µ¸ê®Æ®w
-builder.Services.AddDbContext<nanotableContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("Nanodev")));//³s±µ¸ê®Æ®w
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBdev")));//Connect SQL
+builder.Services.AddDbContext<tableContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBdev")));//Connect SQL
 builder.Services.AddDbContext<WIPContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("NanoEntity")));//³s±µ¸ê®Æ®w
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBEntity")));//Connect SQL
 
 builder.Services.AddDbContext<TESTContext>(option =>
-    option.UseSqlServer(builder.Configuration.GetConnectionString("NanoTest")));//³s±µ¸ê®Æ®w
-
-builder.Services.AddSession(); // °t¸mSessionªA°È
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBTest")));//Connect SQL
 
 
-//±NAuthorizeFilter®M¥Î¦Ü¾ã­Ó¨t²Î
+builder.Services.AddSession(); // Set Session
+
+
+//AuthorizeFilter
+=======
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBEntity")));//é€£æŽ¥è³‡æ–™åº«
+builder.Services.AddDbContext<devContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBdev")));//é€£æŽ¥è³‡æ–™åº«
+builder.Services.AddDbContext<misContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBdev")));//é€£æŽ¥è³‡æ–™åº«
+builder.Services.AddDbContext<tableContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBdev")));//é€£æŽ¥è³‡æ–™åº«
+builder.Services.AddDbContext<WIPContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBEntity")));//é€£æŽ¥è³‡æ–™åº«
+
+builder.Services.AddDbContext<TESTContext>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DBTest")));//é€£æŽ¥è³‡æ–™åº«
+
+builder.Services.AddSession(); // é…ç½®Sessionæœå‹™
+
+
+//å°‡AuthorizeFilterå¥—ç”¨è‡³æ•´å€‹ç³»çµ±
+>>>>>>> 57a69941cd5a539dc541b21b1090b20fae847344
 builder.Services.AddMvc(option =>
 {
     option.Filters.Add(new AuthorizeFilter());
@@ -70,10 +105,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/User/Login"; // ³]¸mµn¿ý­¶­±ªº¸ô®|
+<<<<<<< HEAD
+        options.LoginPath = "/User/Login"; // Set login page
     });
 
-//¥HUnicode½s¼g¡A¨ÏHtmlªº¶Ã½X¥i¥¿½TÅã¥Ü¤å¦r
+//Unicode 
+=======
+        options.LoginPath = "/User/Login"; // è¨­ç½®ç™»éŒ„é é¢çš„è·¯å¾‘
+    });
+
+//ä»¥Unicodeç·¨å¯«ï¼Œä½¿Htmlçš„äº‚ç¢¼å¯æ­£ç¢ºé¡¯ç¤ºæ–‡å­—
+>>>>>>> 57a69941cd5a539dc541b21b1090b20fae847344
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
 
@@ -86,15 +128,29 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts(); //°t¸mhttps­«©w¦V
+<<<<<<< HEAD
+    app.UseHsts(); //set https
 }
 
-app.UseSession(); // ¨Ï¥ÎSession¤¤¤¶³nÅé
+app.UseSession(); // set Session
 
 
-app.UseHttpsRedirection(); //°t¸mhttps­«©w¦V
+app.UseHttpsRedirection(); //set https
 app.UseStaticFiles();
-app.UseAuthentication(); // ±Ò¥Î¨­¥÷ÅçÃÒ¤¤¤¶³nÅé
+
+app.UseAuthentication(); // Enable authentication
+4
+=======
+    app.UseHsts(); //é…ç½®httpsé‡å®šå‘
+}
+
+app.UseSession(); // ä½¿ç”¨Sessionä¸­ä»‹è»Ÿé«”
+
+
+app.UseHttpsRedirection(); //é…ç½®httpsé‡å®šå‘
+app.UseStaticFiles();
+app.UseAuthentication(); // å•Ÿç”¨èº«ä»½é©—è­‰
+>>>>>>> 57a69941cd5a539dc541b21b1090b20fae847344
 app.UseAuthorization();
 
 app.UseRouting();

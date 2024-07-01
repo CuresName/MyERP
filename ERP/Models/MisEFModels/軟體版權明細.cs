@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace 南岩ERP.MisEFModels;
+namespace ERP.MisEFModels;
 
 public partial class 軟體版權明細
 {

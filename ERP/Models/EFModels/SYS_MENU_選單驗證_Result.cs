@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public partial class SYS_MENU_選單驗證_Result
     {

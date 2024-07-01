@@ -6,19 +6,19 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 using X.PagedList;
-using 南岩ERP.Filter;
-using 南岩ERP.MisEFModels;
-using 南岩ERP.Models;
+using ERP.Filter;
+using ERP.MisEFModels;
+using ERP.Models;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Data;
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
     [選單驗證("SYS_資訊設備軟體明細")]
-    public class MisController(misContext db, nanoerpEntities _db, ILogger<MisController> logger, IHttpContextAccessor httpContextAccessor) : Controller
+    public class MisController(misContext db, erpEntities _db, ILogger<MisController> logger, IHttpContextAccessor httpContextAccessor) : Controller
     {
         private readonly misContext db = db;
-        private readonly nanoerpEntities _db = _db;
+        private readonly erpEntities _db = _db;
 
         private readonly string UserID = httpContextAccessor.HttpContext.Session.GetString("UserID");
 

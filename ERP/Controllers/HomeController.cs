@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NLog;
 using System.Diagnostics;
-using 南岩ERP.Models;
+using ERP.Models;
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
     public class HomeController : Controller
     {

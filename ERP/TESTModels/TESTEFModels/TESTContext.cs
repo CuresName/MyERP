@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace 南岩ERP.TESTModels.TESTEFModels;
+namespace ERP.TESTModels.TESTEFModels;
 
 public partial class TESTContext : DbContext
 {

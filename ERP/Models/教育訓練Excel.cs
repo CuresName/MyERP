@@ -1,6 +1,6 @@
-﻿using 南岩ERP.Models;
+﻿using ERP.Models;
 
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public class 教育訓練Excels
     {

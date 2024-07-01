@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace 南岩ERP.Models.WIPEFModels
+namespace ERP.Models.WIPEFModels
 {
     public partial class WIP_001_生產回報_Cassette_NoResult
     {

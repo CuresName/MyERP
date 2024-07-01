@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace 南岩ERP.TESTModels.TESTEFModels
+namespace ERP.TESTModels.TESTEFModels
 {
     public static class DbContextExtensions
     {

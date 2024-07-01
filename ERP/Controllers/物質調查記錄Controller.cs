@@ -4,19 +4,19 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
-using 南岩ERP.Models;
+using ERP.Models;
 using System.Diagnostics;
 using X.PagedList;
-using 南岩ERP.Filter;
+using ERP.Filter;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.RegularExpressions;
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
     [選單驗證("MQA_018_物質調查記錄")]
-    public partial class QA_018_物質調查記錄Controller(nanoerpEntities db, ILogger<QA_018_物質調查記錄Controller> logger, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor) : Controller
+    public partial class QA_018_物質調查記錄Controller(erpEntities db, ILogger<QA_018_物質調查記錄Controller> logger, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor) : Controller
     {
-        private readonly nanoerpEntities db = db;
+        private readonly nerpEntities db = db;
 
         private readonly string UserID = httpContextAccessor.HttpContext.Session.GetString("UserID");
         private readonly string UserIP = httpContextAccessor.HttpContext.Session.GetString("UserIP");

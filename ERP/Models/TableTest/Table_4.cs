@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace 南岩ERP.TableTest;
+namespace ERP.TableTest;
 
 public partial class Table_4
 {

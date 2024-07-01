@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace 南岩ERP.Models.WIPEFModels;
+namespace ERP.Models.WIPEFModels;
 
 public partial class WIPContext : DbContext
 {

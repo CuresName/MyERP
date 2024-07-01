@@ -1,4 +1,4 @@
-﻿namespace 南岩ERP.Models
+﻿namespace ERP.Models
 {
     public class QA_018_物質調查記錄_供應商未回覆清單
     {

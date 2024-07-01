@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace 南岩ERP.TESTModels.TESTEFModels
+namespace ERP.TESTModels.TESTEFModels
 {
     public partial class WIP_001_流程卡資料_各站異常代號Result
     {

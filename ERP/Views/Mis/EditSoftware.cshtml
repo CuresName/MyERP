@@ -1,4 +1,4 @@
-﻿@model 南岩ERP.MisEFModels.軟體版權明細
+﻿@model ERP.MisEFModels.軟體版權明細
 <html>
 <head>
     @{
@@ -35,8 +35,8 @@
                     <td>
                         @Html.DropDownListFor(m => m.公司, new List<SelectListItem>
                     {
-                    new SelectListItem { Text = "南岩", Value = "南岩" },
-                    new SelectListItem { Text = "南洋", Value = "南洋" }
+                    new SelectListItem { Text = "A", Value = "A" },
+                    new SelectListItem { Text = "B", Value = "B" }
                     }, "-- 請選擇公司 --", new { @class = "form-select", required = "true" }) 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="invalid-feedback">

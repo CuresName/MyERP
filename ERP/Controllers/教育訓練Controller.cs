@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ClosedXML.Excel;
 using Microsoft.IdentityModel.Tokens;
-using 南岩ERP.Models;
-using 南岩ERP.教育訓練EFModels;
+using ERP.Models;
+using ERP.教育訓練EFModels;
 using DocumentFormat.OpenXml.Wordprocessing;
 using X.PagedList;
-using 南岩ERP.Filter;
+using ERP.Filter;
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
     [選單驗證("HR_001_教育訓練")]
-    public class 教育訓練Controller(nanodevContext db, nanoerpEntities _db, DocumentController documentController, IHttpContextAccessor httpContextAccessor) : Controller
+    public class 教育訓練Controller(devContext db, erpEntities _db, DocumentController documentController, IHttpContextAccessor httpContextAccessor) : Controller
     {
 
         private readonly string UserIP = httpContextAccessor.HttpContext.Session.GetString("UserIP");
@@ -19,8 +19,8 @@ namespace 南岩ERP.Controllers
         private static readonly object thisLock = new();
         readonly int pageSize = 30;
         private readonly DocumentController _documentController = documentController;
-        private readonly nanodevContext db = db;
-        private readonly nanoerpEntities _db = _db;
+        private readonly devContext db = db;
+        private readonly erpEntities _db = _db;
         public IActionResult Index()
         {
             return View();
@@ -732,7 +732,7 @@ namespace 南岩ERP.Controllers
             //設定標題列名稱與樣式
             worksheet.Range(1 + RowTimes, 1, 1 + RowTimes, 6).Merge();//欄合併
             worksheet.Range(2 + RowTimes, 1, 2 + RowTimes, 6).Merge();//欄合併
-            worksheet.Cell(1 + RowTimes, 1).Value = "南岩半導體股份有限公司";//內容
+            worksheet.Cell(1 + RowTimes, 1).Value = "半導體股份有限公司";//內容
             worksheet.Cell(2 + RowTimes, 1).Value = "技能檢定表";//內容
 
             worksheet.Range(1 + RowTimes, 1, 24 + RowTimes, 6).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;//文字置中
@@ -856,9 +856,9 @@ namespace 南岩ERP.Controllers
             //設定標題列名稱與樣式
             worksheet.Range(2 + RowTimes, 2, 2 + RowTimes, 8).Merge();//欄合併
             worksheet.Range(3 + RowTimes, 2, 3 + RowTimes, 8).Merge();//欄合併
-            worksheet.Cell(2 + RowTimes, 2).Value = "南岩半導體股份有限公司";//內容
+            worksheet.Cell(2 + RowTimes, 2).Value = "半導體股份有限公司";//內容
             worksheet.Cell(2 + RowTimes, 2).Style.Font.SetBold();
-            worksheet.Cell(3 + RowTimes, 2).Value = "Nanotech Certification Card-Test";//內容
+            worksheet.Cell(3 + RowTimes, 2).Value = "Certification Card-Test";//內容
             worksheet.Cell(3 + RowTimes, 2).Style.Font.FontColor = XLColor.Blue;
             worksheet.Range(2 + RowTimes, 2, 12 + RowTimes, 16).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;//文字置中
             worksheet.Range(2 + RowTimes, 2, 12 + RowTimes, 16).Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;//垂直置中

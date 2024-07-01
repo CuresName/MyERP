@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using 南岩ERP.TableTest;
+using ERP.TableTest;
 
-namespace 南岩ERP.Models.TableTest
+namespace ERP.Models.TableTest
 {
     public class TableTestView
     {

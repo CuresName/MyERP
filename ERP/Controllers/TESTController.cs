@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.Protocol;
-using 南岩ERP.TESTModels.TESTEFModels;
+using ERP.TESTModels.TESTEFModels;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -13,7 +13,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
     [AllowAnonymous]
     public class TESTController(TESTContext db, IHttpContextAccessor httpContextAccessor) : Controller

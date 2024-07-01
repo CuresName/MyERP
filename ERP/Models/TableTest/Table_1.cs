@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace 南岩ERP.TableTest;
+namespace ERP.TableTest;
 
 public partial class Table_1
 {

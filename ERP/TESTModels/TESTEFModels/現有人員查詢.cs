@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace 南岩ERP.TESTModels.TESTEFModels;
+namespace ERP.TESTModels.TESTEFModels;
 
 public partial class 現有人員查詢
 {

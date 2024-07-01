@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public class 計畫表Model
     {

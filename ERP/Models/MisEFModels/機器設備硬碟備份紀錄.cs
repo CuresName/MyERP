@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace 南岩ERP.MisEFModels;
+namespace ERP.MisEFModels;
 
 public partial class 機器設備硬碟備份紀錄
 {

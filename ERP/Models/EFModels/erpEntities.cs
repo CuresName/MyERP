@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace 南岩ERP.Models;
+namespace ERP.Models;
 
-public partial class nanoerpEntities : DbContext
+public partial class erpEntitie : DbContext
 {
-    public nanoerpEntities(DbContextOptions<nanoerpEntities> options): base(options)
+    public erpEntitie(DbContextOptions<erpEntitie> options): base(options)
     {
     }
 

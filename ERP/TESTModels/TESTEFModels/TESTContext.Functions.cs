@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 using System.Linq;
-using 南岩ERP.TESTModels.TESTEFModels;
+using ERP.TESTModels.TESTEFModels;
 
-namespace 南岩ERP.TESTModels.TESTEFModels
+namespace ERP.TESTModels.TESTEFModels
 {
     public partial class TESTContext
     {

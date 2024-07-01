@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace 南岩ERP.教育訓練EFModels;
+namespace ERP.教育訓練EFModels;
 
 public partial class 部門表
 {

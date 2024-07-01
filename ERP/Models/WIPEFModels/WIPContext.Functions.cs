@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 using System.Linq;
-using 南岩ERP.Models.WIPEFModels;
+using ERP.Models.WIPEFModels;
 
-namespace 南岩ERP.Models.WIPEFModels
+namespace ERP.Models.WIPEFModels
 {
     public partial class WIPContext
     {

@@ -1,5 +1,5 @@
-﻿using 南岩ERP.教育訓練EFModels;
-namespace 南岩ERP.Models
+﻿using ERP.教育訓練EFModels;
+namespace ERP.Models
 {
     public class ISO文件ModelManager
     {

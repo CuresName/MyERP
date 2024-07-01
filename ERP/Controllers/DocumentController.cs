@@ -3,8 +3,8 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
-using 南岩ERP.Models;
-using 南岩ERP.教育訓練EFModels;
+using ERP.Models;
+using ERP.教育訓練EFModels;
 using ClosedXML.Excel;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
@@ -13,13 +13,13 @@ using Microsoft.AspNetCore.Hosting;
 using DocumentFormat.OpenXml.Spreadsheet;
 
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
-    public class DocumentController(nanodevContext db, ILogger<DocumentController> logger, IWebHostEnvironment webHostEnvironment) : Controller
+    public class DocumentController(DBdevContext db, ILogger<DocumentController> logger, IWebHostEnvironment webHostEnvironment) : Controller
     {
 
         private static readonly object thisLock = new();
-        private readonly nanodevContext db = db;
+        private readonly DBdevContext db = db;
 
         public IActionResult Index()
         {
@@ -169,7 +169,7 @@ namespace 南岩ERP.Controllers
         public void 計畫表excel(string 計畫表編號, IXLWorksheet worksheet)
         {
             worksheet.PageSetup.Margins.SetTop(0.7).SetLeft(0.2).SetBottom(0).SetRight(0.2).SetHeader(0.3).SetFooter(0);
-            worksheet.PageSetup.Header.Center.AddText("南岩半導體股份有限公司2024年度教育訓練計劃", XLHFOccurrence.AllPages).SetFontSize(26).SetFontName("標楷體");
+            worksheet.PageSetup.Header.Center.AddText("2024年度教育訓練計劃", XLHFOccurrence.AllPages).SetFontSize(26).SetFontName("標楷體");
             var 計畫書 = db.教育訓練計畫表內容.Where(m => m.計畫表編號 == 計畫表編號).ToList();
             //設定標題列名稱與樣式
             for (int i = 1; i <= 5; i++)

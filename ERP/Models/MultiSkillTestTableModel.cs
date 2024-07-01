@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using 南岩ERP.教育訓練EFModels;
+using ERP.教育訓練EFModels;
 
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public class MultiSkillTestTableModel
     {

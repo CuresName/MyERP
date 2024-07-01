@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace 南岩ERP.Models.WIPEFModels;
+namespace ERP.Models.WIPEFModels;
 
 public partial class WIP_001_產線現有班別
 {

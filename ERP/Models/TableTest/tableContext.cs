@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace 南岩ERP.TableTest;
+namespace ERP.TableTest;
 
-public partial class nanotableContext : DbContext
+public partial class tableContext : DbContext
 {
-    public nanotableContext(DbContextOptions<nanotableContext> options)
+    public tableContext(DbContextOptions<tableContext> options)
         : base(options)
     {
     }

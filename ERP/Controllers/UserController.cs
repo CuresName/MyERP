@@ -4,20 +4,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Sockets;
-using 南岩ERP.Models;
+using ERP.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Text;
 using DocumentFormat.OpenXml.Spreadsheet;
 
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
     [AllowAnonymous]
-    public class UserController(nanoerpEntities db, ILogger<UserController> logger, IHttpContextAccessor httpContextAccessor) : Controller
+    public class UserController(erpEntities db, ILogger<UserController> logger, IHttpContextAccessor httpContextAccessor) : Controller
     {
 
-        private readonly nanoerpEntities db = db;
+        private readonly erpEntities db = db;
 
         private readonly string UserIP = httpContextAccessor.HttpContext.Session.GetString("UserIP");
         private readonly string UserID = httpContextAccessor.HttpContext.Session.GetString("UserID");

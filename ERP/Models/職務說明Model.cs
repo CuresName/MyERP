@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-namespace 南岩ERP.Models
+namespace ERP.Models
 {
     public class 職務說明Model
     {

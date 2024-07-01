@@ -2,18 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
-using 南岩ERP.MisEFModels;
-using 南岩ERP.Models;
+using ERP.MisEFModels;
+using ERP.Models;
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
 
-    public class MenuController(nanoerpEntities db, IHttpContextAccessor httpContextAccessor) : Controller
+    public class MenuController(erpEntities db, IHttpContextAccessor httpContextAccessor) : Controller
     {
         private readonly string UserID = httpContextAccessor.HttpContext.Session.GetString("UserID");
         private readonly string UserIP = httpContextAccessor.HttpContext.Session.GetString("UserIP"); 
         private readonly string UserPC = httpContextAccessor.HttpContext.Session.GetString("電腦名稱");
-        private readonly nanoerpEntities db = db;
+        private readonly erpEntities db = db;
         // GET: Menu
         public ActionResult Index()
         {
@@ -67,7 +67,7 @@ namespace 南岩ERP.Controllers
         public ActionResult 物質調查記錄()
         {
             //網頁導向該系統
-            return RedirectToAction("List", "QA_018_物質調查記錄");
+            return RedirectToAction("List", "物質調查記錄");
         }
         public ActionResult 教育訓練()
         {

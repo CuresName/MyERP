@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace 南岩ERP.Models.WIPEFModels
+namespace ERP.Models.WIPEFModels
 {
     public class WIP_001_Models
     {

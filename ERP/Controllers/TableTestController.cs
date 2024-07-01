@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
-using 南岩ERP.Models;
-using 南岩ERP.Models.TableTest;
-using 南岩ERP.TableTest;
+using ERP.Models;
+using ERP.Models.TableTest;
+using ERP.TableTest;
 
-namespace 南岩ERP.Controllers
+namespace ERP.Controllers
 {
-    public class TableTestController(nanotableContext db) : Controller
+    public class TableTestController(tableContext db) : Controller
     {
-        private readonly nanotableContext db = db;
+        private readonly tableContext db = db;
         public async Task<IActionResult> Index()
         {
             try

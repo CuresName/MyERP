@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace 南岩ERP.教育訓練EFModels;
+namespace ERP.教育訓練EFModels;
 
-public partial class nanodevContext : DbContext
+public partial class devContext : DbContext
 {
-    public nanodevContext(DbContextOptions<nanodevContext> options)
+    public devContext(DbContextOptions<devContext> options)
         : base(options)
     {
     }

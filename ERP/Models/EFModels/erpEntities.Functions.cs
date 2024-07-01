@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 using System.Linq;
-using 南岩ERP.Models;
+using ERP.Models;
 
-namespace 南岩ERP.Models;
+namespace ERP.Models;
 
-public partial class nanoerpEntities
+public partial class erpEntitie
 {
     [DbFunction("MA_005_供應商資料查詢", "dbo")]
     public IQueryable<MA_005_供應商資料查詢Result> MA_005_供應商資料查詢()

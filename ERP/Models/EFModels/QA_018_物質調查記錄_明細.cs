@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace 南岩ERP.Models;
+namespace ERP.Models;
 
 public partial class QA_018_物質調查記錄_明細
 {

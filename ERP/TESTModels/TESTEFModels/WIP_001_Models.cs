@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace 南岩ERP.TESTModels.TESTEFModels
+namespace ERP.TESTModels.TESTEFModels
 {
     public class WIP_001_Models
     {

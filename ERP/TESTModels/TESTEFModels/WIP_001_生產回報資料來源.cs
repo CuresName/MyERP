@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace 南岩ERP.TESTModels.TESTEFModels;
+namespace ERP.TESTModels.TESTEFModels;
 
 public partial class WIP_001_生產回報資料來源
 {
