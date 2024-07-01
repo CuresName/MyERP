@@ -1,0 +1,702 @@
+﻿@model 南岩ERP.Models.QA_018_ModelsManager
+
+
+<html>
+<head>
+    @{
+        ViewBag.Title = @Html.DisplayFor(model => model.Ask!.物質調查編號);
+
+    }
+    @if (TempData["message"] != null)
+    {
+        <script>
+            alert('@TempData["message"]');
+        </script>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            alert('@TempData["Error"]');
+        </script>
+    }
+    <meta name="viewport" />
+    <script>
+        $(document).ready(function () {
+            // 設置所有 input 和 textarea 為唯獨
+            $('input, textarea').attr('readonly', true);
+            $("#replaysave,#sendemail").addClass('hide');
+            $('button,#fileUpload,.btn').addClass('hide');
+            // 依 ViewBag.Session 的值判斷使用者
+            var 刪除 = parseInt("@ViewBag.刪除");
+            var 新增 = parseInt("@ViewBag.新增");
+            var 修改 = parseInt("@ViewBag.修改");
+            var 目前狀態 = '@TempData["目前狀態"]';
+            if (新增 > 0) {
+                $("textarea,#回覆期限,#addCompany,#company-search,#fileUpload").removeAttr("readonly");
+                $('#新增調查,#儲存調查,#fileUpload,#fileRemove,#addCompany,#fileRemove button').removeClass('hide');
+            }
+            //品管權限
+            if (修改 > 0) {
+                $('#replaytable input[id="replayDelete"],#addCompany').removeClass('hide');
+                $('#replaytable input[id="replayDelete"],#company-search,#addCompany').removeAttr("readonly");
+            }
+            //品管完成後，採購接手
+            if ($('#sendYN').val() != "N") {
+                $('input, textarea').attr('readonly', true);
+                $("#replaysave,#sendemail,.form-select").addClass('hide');
+                $('button,#fileUpload,.btn').addClass('hide');
+            }
+            else if ($('#sendYN').val() == "N") {
+                $('#轉給採購').removeClass('hide');
+            }
+            //採購權限
+            if ($('#sendYN').val() == "A" && 修改 > 新增) {
+                $('#company-search,#addCompany').removeAttr('readonly');
+                $('.emailSelector,#addCompany,#sendMail').removeClass('hide');
+                $('#replaytable input[id="replayDelete"]').removeClass('hide');
+                $('#replaytable input[id="replayDelete"]').removeAttr('readonly');
+            }//品管權限
+            else if ($('#sendYN').val() == "A") {
+                $('#company-search').removeAttr('readonly');
+                $('.emailSelector,#addCompany,#sendMail').removeClass('hide');
+
+            }
+            //採購將信件寄出後
+            if ($('#sendYN').val() == "Y") {
+                $('.emailSelector').addClass('hide');
+                $('input, textarea').attr('readonly', true);
+                $("#replaysave,#sendemail,.form-select").addClass('hide');
+                $('button,#fileUpload,.btn').addClass('hide');
+                $('#replaytable input[id="replayDelete"]').addClass('hide');
+            }
+            //信件由統自動寄出後
+            if ($('#sendYN').val() == "S" && 新增 > 0) {
+                $('#replaysave').removeClass('hide');
+                $('#replaytable input[type="text"],#replaysave').removeAttr('readonly');
+                $('#replaytable input[type="date"]').removeAttr('readonly');
+
+            }
+            //目前表單權限狀態
+            if (目前狀態 == "新增調查") {
+                $('#fileUpload').hide();
+                $('.emailSelector,#轉給採購').addClass('hide');
+                $('body').addClass('CreateStatu');
+                $('.CreateBtn').hide();
+            } else if (目前狀態 == "唯讀狀態") {
+                $('body').addClass('OnlyRead');
+            } else if (目前狀態 == "已寄送") {
+                $('body').addClass('SendStatu');
+            }
+            $("#儲存調查").click(function () {
+                $("#endYN").removeAttr('disabled');
+            });
+            $('#返回').removeClass('hide');
+        });
+    </script>
+
+</head>
+<body>
+    <h2 class="statu">@TempData["目前狀態"]</h2>
+    <div class="functionList">
+        <div style="margin:20px 0 0 60px;height:38px;">
+        </div>
+
+        <div class="container-fluid ">
+            <div class="outer-container justify-content-center">
+                @*物質調查表單*@
+                @using (Html.BeginForm("Upload", "QA_018_物質調查記錄", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "justify-content-center needs-validation", style = "display: flex;flex-wrap:wrap;", novalidate = "novalidate" }))
+                {
+                    <div style="margin-right:auto;">
+                        @if (ViewBag.新增 > 0)
+                        {
+                            <a type="button" class="CreateBtn btn" href="~/QA_018_物質調查記錄/Create" id="新增調查"><i class="fa-solid fa-square-plus"></i> 新增調查</a>
+                        }
+                        @if (ViewBag.修改 > 0)
+                        {
+                            <button id="儲存調查" class="btn btn-info" type="submit">儲存</button>
+                        }
+                        @Html.ActionLink("返回", "List", "QA_018_物質調查記錄", null, new { @class = "btn btn-danger", id = "返回" })
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <div style="width: 720px;">
+                        <table class="table" style="vertical-align:middle;">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.物質調查編號)
+                                </th>
+                                <th colspan="3">
+                                    @Html.EditorFor(model => model.Ask!.物質調查編號, new { htmlAttributes = new { @class = "form-control", id = "物質調查編號", type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.物質調查編號, "", new { @class = "text-danger" })
+                                </th>
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.Ask!.KEYIN_DATE)
+                                </th>
+                                <th hidden>
+                                    @Html.EditorFor(model => model.Ask!.KEYIN_DATE, new { htmlAttributes = new { type = "date", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.KEYIN_DATE, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.物質調查流水號)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask!.物質調查流水號, new { htmlAttributes = new { @class = "form-control serial-number", id = "物質調查流水號" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.物質調查流水號, "", new { @class = "text-danger" })
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.建檔日期)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask!.建檔日期, new { htmlAttributes = new { @class = "form-control uplodedate", id = "建檔日期" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.建檔日期, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.調查人員)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask!.調查人員, new { htmlAttributes = new { @class = "form-control", id = "調查人員" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.調查人員, "", new { @class = "text-danger" })
+                                </th>
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.Ask!.HOST_NAME)
+                                </th>
+                                <th hidden>
+                                    @Html.EditorFor(model => model.Ask!.HOST_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.HOST_NAME, "", new { @class = "text-danger" })
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.調查日期)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask!.調查日期, new { htmlAttributes = new { type = "date", required = "true", id = "調查日期", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.調查日期, "", new { @class = "text-danger" })
+                                </th>
+                                <th hidden>
+                                    @Html.DisplayNameFor(model => model.Ask!.HOST_IP)
+                                </th>
+                                <th hidden>
+                                    @Html.EditorFor(model => model.Ask!.HOST_IP, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.HOST_IP, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.調查事項)
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.調查事項, new { id = "CHeditor", @class = "form-control", required = "required" })
+                                    <div class="invalid-feedback">
+                                        你必須填寫該區域
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    調查事項英文
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.調查事項英文, new { id = "ENeditor", @class = "form-control", required = "required" })
+                                    <div class="invalid-feedback">
+                                        You must be fill this area.
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr class="信件內文">
+                                <th>
+                                    內文2
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.內文2, new { id = "內文2", @class = "form-control content" })
+                                    <select class="form-select" asp-items="Model.內文2" id="內文2Select"></select>
+                                </th>
+                            </tr>
+                            <tr class="信件內文">
+                                <th>
+                                    內文2英文
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.內文2英文, new { id = "內文2英文", @class = "form-control content" })
+                                    <select class="form-select" asp-items="Model.內文2英文"></select>
+                                </th>
+                            </tr>
+                            <tr class="信件內文">
+                                <th>
+                                    內文3
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.內文3, new { id = "內文3", @class = "form-control content" })
+                                    <select class="form-select" asp-items="Model.內文3"></select>
+                                </th>
+                            </tr>
+                            <tr class="信件內文">
+                                <th>
+                                    內文3英文
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.內文3英文, new { id = "內文3英文", @class = "form-control content" })
+                                    <select class="form-select" asp-items="Model.內文3英文"></select>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.回覆期限)
+                                </th>
+                                <th colspan="3">
+                                    @Html.EditorFor(model => model.Ask!.回覆期限, new { htmlAttributes = new { type = "date", required = "required", @class = "form-control", id = "回覆期限" } })
+                                </th>
+                                @Html.ValidationMessageFor(model => model.Ask!.回覆期限, "", new { @class = "text-danger" })
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.結案)
+                                </th>
+                                <th>
+                                    @Html.DropDownListFor(model => model.Ask!.結案, new List<SelectListItem>
+                                {
+                                new SelectListItem { Text = "Y", Value = "Y" },
+                                new SelectListItem { Text = "N", Value = "N" }
+                                }, new { @class = "endYN", style = "width:40px", id = "endYN", disabled = "disabled" })
+                                    @Html.ValidationMessageFor(model => model.Ask!.結案, "", new { @class = "text-danger" })
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask!.結案日期)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask!.結案日期, new { htmlAttributes = new { type = "date", id = "enddate", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ask!.結案日期, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask.寄送狀態)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask.寄送狀態, new { htmlAttributes = new { @class = "form-control", id = "sendYN", style = "width:40px", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Ask.寄送狀態, "", new { @class = "text-danger" })
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask.寄送日期)
+                                </th>
+                                <th>
+                                    @Html.EditorFor(model => model.Ask.寄送日期, new { htmlAttributes = new { type = "date", id = "senddate", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ask.寄送日期, "", new { @class = "text-danger" })
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ask.備註)
+                                </th>
+                                <th colspan="3">
+                                    @Html.TextAreaFor(model => model.Ask!.備註, new { id = "備註", @class = "form-control Remark" })
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                }
+                @if (ViewBag.新增 > 0)
+                {
+                    <button class="btn btn-success" id="轉給採購">轉給採購</button>
+                }
+            </div>
+            <div class="container" style="margin-left:50px;margin-right: auto;width: 500px;">
+                <div>
+                    @Html.DisplayNameFor(model => model.AskFile!.Last().附件檔名)
+                    <input type="file" id="fileUpload" name="fileUpload" value="上傳檔案" multiple />
+                    <span id="filecount">/5個檔案 (檔案名稱只能中文或英文)</span>
+                </div>
+                <div class="table-wrapper">
+                    <div>
+                        <table class="table table-striped table-bordered" id="title">
+                            <tbody id="body">
+                                @{
+                                    foreach (var item in Model.AskFile)
+                                    {
+                                        if (item.附件檔名 != "")
+                                        {
+                                            <tr id="@item.附件檔名">
+                                                <td>
+                                                    <a id="filenum" href="~/QA_018_物質調查記錄/Downloads?path=@Uri.EscapeDataString(@"\\fileserver\erp-files\QA_018_物質調查記錄\" + Model.Ask.物質調查流水號 + @"\" + item.附件檔名)">
+                                                        @item.附件檔名
+                                                    </a>
+                                                </td>
+                                                <td id="fileRemove">
+                                                    <button onclick="removea('@item.附件檔名')" style="border: 0px;background-color: #2125291a;width: 20px;height: 20px;font-size:1px;margin-left: 10px;"><i class="fa-solid fa-trash-can"></i></button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    @using (Html.BeginForm("ReplayContext", "QA_018_物質調查記錄", FormMethod.Post))
+    {
+        <div class="container" style="margin-left: 0; display: flex; width: 1140px;">
+            <table class="table table-bordered" style="font-size:14px;" id="replaytable">
+                <tr style="text-align: center;">
+                    <th width="50px">
+                        <input hidden name="Id" type="text" value="@Model.Ask.物質調查流水號" />
+                        <input class="btn btn-primary" type="submit" id="replaysave" value="儲存" />
+                    </th>
+                    <th width="100px">
+                        供應商編號
+                    </th>
+                    <th width="164px">
+                        供應商名稱
+                    </th>
+                    <th width="200px">
+                        Email
+                    </th>
+                    <th width="164px">
+                        回覆日期
+                    </th>
+                    <th width="100px">
+                        回覆狀態
+                    </th>
+                    <th>
+                        備註
+                    </th>
+                </tr>
+                @foreach (var item in Model.廠商回覆)
+                {
+                    <tr>
+                        <td>
+                            <input type="button" id="replayDelete" class="btn btn-danger" value="刪除" />
+                            <input hidden name="供應商編號" type="text" value="@item.供應商編號" />
+                            <input hidden name="物質調查流水號" type="text" value="@item.物質調查流水號" />
+                        </td>
+                        <td width="100px">
+                            @item.供應商編號
+                        </td>
+                        <td>
+                            @Model.Company!.Where(m => m.供應商編號 == @item.供應商編號).FirstOrDefault()!.供應商全名.ToString()
+                        </td>
+                        <td>
+                            @item.ISO_EMAIL
+                        </td>
+                        <td>
+                            @if (item.回覆日期 != null)
+                            {
+                                <input class="form-control" name="replayDate" type="date" value="@item.回覆日期.Value.ToString("yyyy-MM-dd")" />
+                            }
+                            else
+                            {
+                                <input class="form-control" name="replayDate" type="date" value="" />
+                            }
+                        </td>
+                        <td>
+                            <select name="replayState" class="form-control replayYN" style="width:40px">
+                                @{
+                                    if (item.回覆狀態 == "Y")
+                                    {
+                                        <option value="@(item.回覆狀態)" selected="selected">@item.回覆狀態</option>
+                                        <option value="N">N</option>
+                                    }
+                                    else if (item.回覆狀態 == "N")
+                                    {
+                                        <option value="@(item.回覆狀態)" selected="selected">@item.回覆狀態</option>
+                                        <option value="Y">Y</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@(item.回覆狀態)" selected="selected">@item.回覆狀態</option>
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control" name="replayRemark" style="width:600px" type="text" value="@item.備註" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+    @*供應商回覆*@
+    @using (Html.BeginForm("AddCompany", "QA_018_物質調查記錄", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <input hidden type="text" value="@Model.Ask.物質調查流水號" name="Id" />
+        <hr />
+        <div class="emailSelector" style="display: flex;flex-direction: column;align-items: center;">
+            <div class="d-flex" style="width:1000px;background-color: white;margin:auto">
+                <div id="CompanyCheck" class="d-inline-block" style="overflow-y:scroll;width:500px;height:400px;">
+                    <div class="CompanySelect">
+                        <span>供應商表單</span>
+                    </div>
+
+                    <input class="form-control" type="text" id="company-search" style="width:300px" />
+                    @foreach (var item in Model.Company)
+                    {
+                        var a = item.供應商編號.ToString();
+                        var b = Model.廠商回覆.Where(m => m.供應商編號 == a).FirstOrDefault();
+                        if (b == null)
+                        {
+                            <div style="width:450px;height:24px;">
+                                <input name="receiver" id="@item.供應商編號" value="@item.ISO_EMAIL" type="checkbox" />
+                                <label for="@item.供應商編號">
+                                    @item.供應商全名
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+                <div id="CompanyChecked" style="overflow-y:scroll;width:500px;height:400px;">
+                    <div class="CompanySelect">
+                        <span>已選取的供應商</span>
+                    </div>
+
+                    @foreach (var item in Model.Company)
+                    {
+                        var a = item.供應商編號.ToString();
+                        var b = Model.廠商回覆.Where(m => m.供應商編號 == a).FirstOrDefault();
+                        if (b == null)
+                        {
+                            <div style="width:450px;height:24px;" hidden>
+                                <input id="@item.供應商編號-checked" hidden type="checkbox" />
+                                <label id="@item.供應商編號" for="@item.供應商編號">
+                                    @item.供應商全名
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div>
+                <input id="addCompany" type="submit" style="width:110px;" class="btn btn-info mt-2" value="新增供應商" />
+                <button id="sendMail" style="width:110px;" class="btn btn-info mt-2">確認寄送</button>
+            </div>
+        </div>
+
+    }
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#轉給採購').click(function () {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("SendA", "QA_018_物質調查記錄", new { Id = @Model.Ask.物質調查流水號 })',
+                    success: function (result) {
+                        console.log(result);
+                        location.reload();
+                    },
+                    error: function (xhr, status) {
+                        alert("上傳失敗" + xhr + status + '@ViewBag.e');
+                        console.log("上傳失敗" + xhr + status + '@ViewBag.e');
+                        location.reload();
+                    }
+                });
+            })
+
+        });
+
+        //檔案上傳，新增檔案後會新增上傳檔案列表
+        $(document).ready(function () {
+            var num = 0;
+            $("#title tr").each(function () {
+                num += 1;
+            });
+            $('#filecount').html("<span>" + num + "/5個檔案</span>");
+
+            $('#fileUpload').change(function (e) {
+                var files = e.target.files;
+                if (files.length > 0 && files.length + num <= 5) {
+                    if (window.FormData !== undefined) {
+                        var data = new FormData();
+
+                        //可上傳多檔案
+                        for (var x = 0; x < files.length; x++) {
+                            data.append(files[x].name, files[x]);
+                            $('#title').append('<tr id="' + files[x].name + '"><td><a href="~/QA_018_物質調查記錄/Downloads?path="/>'
+                                + files[x].name + '</td><td><button onclick="remove('
+                                + files[x].name + ')"style="border: 0px;background-color: #2125291a;width: 20px;height: 20px;font-size:1px;margin-left: 10px;"><i class="fa-solid fa-trash-can"></i></button></td>');
+                        }
+                        $.ajax({
+                            type: "post",
+                            url: '@Url.Action("UploadByAjax", "QA_018_物質調查記錄", new { 物質調查流水號 = @Model.Ask.物質調查流水號 })',
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function (result) {
+                                console.log(result);
+                                location.reload();
+                            },
+                            error: function (xhr, status) {
+                                alert("上傳失敗" + xhr + status + '@ViewBag.e');
+                                console.log("上傳失敗" + xhr + status + '@ViewBag.e');
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        alert("此瀏覽器不支援HTML5檔案上傳");
+                    }
+                }
+                else if (files.length + num > 5) {
+                    alert("最多上傳 5 個檔案!");
+                }
+
+            });
+
+            //廠商清單
+            $(document).ready(function () {
+                $('#CompanyCheck input[type="checkbox"]').click(function () {
+                    var checkornot = $(this).prop("checked");
+                    var id = $(this).attr("id");
+                    if (!checkornot) {
+                        $('#' + id + '').parent('div').removeAttr('hidden');
+                        $('#' + id + '-checked + label').parent('div').attr('hidden', 'true');
+                    } else {
+                        $('#CompanyCheck input:checkbox:checked').parent('div').attr('hidden', 'true');
+                        $('#' + id + '-checked + label').parent('div').removeAttr('hidden');
+                    };
+                });
+            });
+
+            $(document).ready(function () {
+                $("#company-search").on("input", function () {
+                    var searchText = $(this).val().toLowerCase(); // 將搜尋文字轉成小寫
+                    $("#CompanyCheck div").each(function () {
+                        var div = $(this);
+                        var label = div.find("label");
+                        var labelText = label.text().toLowerCase(); // 將標籤文字轉為小寫
+                        var input = div.find("input");
+                        var inputId = input.attr("id").toLowerCase(); // 將輸入框ID轉為小寫
+                        if (labelText.includes(searchText) || inputId.includes(searchText)) {
+                            div.show(); // 顯示相符項目
+                        } else {
+                            div.hide(); // 隱藏不相符項目
+                        }
+                    });
+                });
+            });
+
+            //刪除已選廠商
+            $('#replaytable input[type="button"]').click(function () {
+                var button = $(this);
+                var 供應商編號 = button.siblings('input[name="供應商編號"]').val();
+                var 物質調查流水號 = button.siblings('input[name="物質調查流水號"]').val();
+                if (confirm('是否刪除')) {
+                    $.ajax({
+                        type: "post",
+                        url: '@Url.Action("DeleteReplay", "QA_018_物質調查記錄")',
+                        data: {
+                            供應商編號: 供應商編號,
+                            物質調查流水號: 物質調查流水號
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            location.reload();
+                        },
+                        error: function (xhr, status) {
+                            alert("上傳失敗");
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            //調查發信
+            $('#sendMail').click(function () {
+                var Id = @Model.Ask.物質調查流水號;
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("SendMail", "QA_018_物質調查記錄")',
+                    data: {
+                        Id: Id,
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        location.reload();
+                    },
+                    error: function (xhr, status) {
+                        alert(status);
+                        location.reload();
+                    }
+                });
+            });
+
+            //結案時，可選取結案日期
+            $('#endYN').change(function () {
+                var YN = $(this).val();
+                if (YN == "Y") {
+                    $('#enddate').removeAttr("readonly")
+                }
+            });
+
+            //內文2,3範本套用
+            $("select").change(function () {
+                // 獲取選項的值
+                var selectedValue = $(this).val();
+
+                // 找到下拉選單最近的textarea
+                var nearestTextarea = $(this).closest("tr").find("textarea");
+
+                // 設置textarea的內文
+                nearestTextarea.val(selectedValue);
+            });
+        });
+
+        //檔案刪除
+        function removea(a) {
+            if (confirm('是否刪除')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFile")',
+                    type: 'Post',
+                    data: {
+                        物質調查流水號: @Model.Ask.物質調查流水號,
+                        FileName: a
+                    },
+                    success: function (result) {
+                        console.log(result);
+                        location.reload();
+                    },
+                    error: function (xhr, status, result) {
+                        console.log(result);
+                        location.reload();
+                    }
+                });
+            };
+        };
+
+    </script>
+
+    @*Boostrap表單驗證功能*@
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>
+</html>
+

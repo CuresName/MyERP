@@ -1,0 +1,273 @@
+﻿@model 南岩ERP.Models.計畫表Model;
+@{
+    ViewData["Title"] = "計畫表內容編輯";
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        table tr {
+            height: 50px;
+        }
+
+        .上課時數 {
+            display: inline-block;
+            width: 70px;
+        }
+
+        td a {
+            height: 35px;
+            width: 60px;
+            margin: 5px;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .outer-container {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: flex;
+            background: white;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<div>
+    @using (Html.BeginForm("計畫表Edit", "教育訓練", FormMethod.Post, new { @enctype = "multipaert/form-data", @class = "needs-validation", novalidate = "novalidate" }))
+    {
+        <input name="計畫表編號" value="@Model.計畫表編號" hidden />
+        <input name="計畫表內容流水號" value="@Model.計畫表內容流水號" hidden />
+        <dvi class="outer-container">
+            <table class="w-100">
+                <tr>
+                    <th colspan="2">提出單位：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.計畫表編號, new { htmlAttributes = new { id = "計畫表編號", hidden = "true" } })
+                        @Html.EditorFor(m => m.計畫表內容流水號, new { htmlAttributes = new { id = "計畫表內容流水號", hidden = "true" } })
+                        @Html.EditorFor(m => m.提出單位, new { htmlAttributes = new { @class = "form-control", id = "提出單位", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">類別：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.類別, new { htmlAttributes = new { @class = "form-control", id = "類別", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">課程名稱：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.課程名稱, new { htmlAttributes = new { @class = "form-control", id = "課程名稱", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">課程大綱：</th>
+                    <td colspan="2">
+                        @Html.TextAreaFor(m => m.課程大綱, new { @class = "form-control", id = "課程大綱", style = "height:260px;", required = "required" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        基層別
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div id="基層別">
+                            @for (int i = 0; i < Model.基層別.Count; i++)
+                            {
+                                <label>
+                                    @Html.HiddenFor(m => m.基層別[i].ID)
+                                    @Html.HiddenFor(m => m.基層別[i].Text)
+                                    @Html.CheckBoxFor(m => m.基層別[i].IsChecked, new { id = Model.基層別[i].Text })
+                                    @Model.基層別[i].Text
+                                </label>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>訓練單位/對象</th>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <dvi id="訓練單位">
+                            @for (int i = 0; i < Model.訓練單位.Count; i++)
+                            {
+                                <label>
+                                    @Html.HiddenFor(m => m.訓練單位[i].ID)
+                                    @Html.HiddenFor(m => m.訓練單位[i].Text)
+                                    @Html.CheckBoxFor(m => m.訓練單位[i].IsChecked, new { id = Model.訓練單位[i].Text })
+                                    @Model.訓練單位[i].Text
+                                </label>
+                                if (i == 4)
+                                {
+                                    <br />
+                                }
+                            }
+                        </dvi>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">預計上課日期：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.預計上課日期, new { htmlAttributes = new { type = "date", @class = "form-control", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">上課時數：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.上課時數, new { htmlAttributes = new { @class = "上課時數 form-control", id = "上課時數", required = "required" } })
+                        HR
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">訓練方式 內訓/外訓</th>
+                    <td colspan="2">
+                        <div id="訓練方式">
+                            <label for="內訓">
+                                @Html.RadioButtonFor(m => m.訓練方式, "內訓", new { @class = "form-check-input", id = "內訓", required = "required", @checked = "true" })
+                                內訓
+                            </label><label for="外訓">
+                                @Html.RadioButtonFor(m => m.訓練方式, "外訓", new { @class = "form-check-input", @checked = "false", id = "外訓", required = "required" })
+                                外訓
+                            </label>
+                            <div class="invalid-feedback">
+                                請選擇訓練方式
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">講師：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.講師, new { htmlAttributes = new { @class = "form-control", id = "講師", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">預計費用：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.預計費用, new { htmlAttributes = new { @class = "form-control", id = "預計費用", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">預計參訓人數：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.預計參訓人數, new { htmlAttributes = new { @class = "form-control", id = "預計參訓人數", required = "required" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">預計總費用：</th>
+                    <td colspan="2">
+                        @Html.EditorFor(m => m.預計總費用, new { htmlAttributes = new { @class = "form-control", id = "預計總費用", required = "required" } })
+                    </td>
+                </tr>
+            </table>
+        </dvi>
+
+        <button id="確認" class="btn btn-primary" type="submit">確認</button>
+    }
+</div>
+
+@*Boostrap表單驗證功能*@
+<script>
+    // $(document).ready(function () {
+    //     // 在这里编写你的JavaScript代码
+    //     console.log("Document is ready!");
+    //     $('form').submit(function (event) {
+
+    //         if (@TempData["計畫表編號"]!= null) {
+    //             var 計畫表編號= @TempData["計畫表編號"];
+    //             var url = '@Url.Action("計畫表", "教育訓練")' + "?計畫表編號=" + 計畫表編號;
+    //             window.parent.location.href = url;
+    //         }
+    //     });
+    // });
+    $(document).ready(function () {
+        $('form').submit(function (event) {
+            var formIsValid = true;
+            var 訓練方式 = $('input[name="訓練方式"]:checked').val();
+            // 遍歷所有必填字段
+            $(this).find('[required]').each(function () {
+                // 檢查字段是否已填寫
+                console.log($(this).val());
+                if ($(this).val().trim() === '' || 訓練方式==null) {
+                    // 如果未填寫，標記表單為無效
+                    formIsValid = false;
+                }
+            });
+            // 如果表單是無效的，阻止默認提交行為
+            if (!formIsValid) {
+                event.preventDefault();
+            } else {
+                // 阻止表单的默认提交行为
+                event.preventDefault();
+
+                // 获取表单数据
+                var formData = $(this).serialize();
+
+                // 执行提交表单并关闭iframe弹窗的操作
+                submitFormAndCloseIframe(formData);
+            }
+        });
+
+        // 提交表单并关闭iframe弹窗的函数
+        function submitFormAndCloseIframe(formData) {
+            // 在这里执行Ajax提交表单的操作
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("計畫表Edit", "教育訓練")',
+                data: formData,
+                success: function (response) {
+                    console.log(response);
+
+                    // 获取计划表编号
+                    var 計畫表編號 = response.計畫表編號;
+                    // 构建URL
+                    var url = '@Url.Action("計畫表", "教育訓練")' + "?計畫表編號=" + 計畫表編號;
+                    // 重定向到新的URL
+                    window.parent.location.href = url;
+                },
+                error: function (xhr, status, error) {
+                    // 在提交出错时可以进行相应的处理
+                    console.log('提交表单出错：' + error);
+                }
+            });
+        }
+    });
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>

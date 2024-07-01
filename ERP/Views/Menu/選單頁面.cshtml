@@ -1,0 +1,141 @@
+﻿@model 南岩ERP.Models.ViewModel
+@{
+    ViewBag.Title = "選單頁面";
+}
+<head>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Crimson+Pro">
+    <style>
+        .menu-btn {
+            text-decoration: none;
+            margin: 5px;
+            width: 200px;
+            height: 62px;
+            --bs-btn-color: #ffffff;
+            --bs-btn-hover-color: #000;
+        }
+
+        .menu-btn-group {
+            width: 1540px;
+        }
+
+        .btn {
+            font-weight: bold;
+            font-size: large;
+            font-family: Noto Serif Traditional Chinese, serif;
+        }
+
+        .btn-danger {
+            --bs-btn-bg: #c5046399;
+            --bs-btn-border-color: #c5046399;
+            --bs-btn-hover-bg: #ff7ead;
+        }
+
+        .btn-warning {
+            --bs-btn-bg: #d29e1d;
+            --bs-btn-border-color: #d29e1d;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: #003ebc;
+        }
+
+        .btn-light {
+            --bs-btn-bg: #93969a
+        }
+
+        .btn-info {
+            --bs-btn-bg: #00aacc;
+        }
+
+        .btn-secondary {
+            --bs-btn-bg: #6738a2;
+            --bs-btn-hover-bg: #ae75f4;
+        }
+
+        .btn-success {
+            --bs-btn-bg: #006234d6;
+            --bs-btn-hover-bg: #2bb575;
+        }
+    </style>
+</head>
+<div style="padding-left:20px;">
+<h1>選單頁面</h1>
+<div>
+    <a class="menu-btn btn btn-info d-flex align-items-center text-center justify-content-around bg-gradient" href="/Menu/物質調查記錄">
+        物質調查記錄
+    </a>
+            <a class="menu-btn btn btn-info" href="/Menu/教育訓練">
+                教育訓練
+            </a>
+            <a class="menu-btn btn btn-info" href="/Menu/Mis">
+                Mis系統
+            </a>
+     @{
+        var menuItemsByCategory = Model.MenuItemsByCategory;
+        foreach (var category in menuItemsByCategory!.Keys)
+        {
+            <p style="font-size:2rem;">
+                @category
+            </p>
+            <div class="menu-btn-group d-flex flex-wrap justify-content-start">
+                @{
+                    var x = 1;
+                }
+                @foreach (var item in menuItemsByCategory[category])
+                {
+
+                    switch (x)
+                    {
+                        case 1:
+                            x++;
+                            <a class="menu-btn btn btn-info d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        case 2:
+                            x++;
+                            <a class="menu-btn btn btn-primary d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        case 3:
+                            x++;
+                            <a class="menu-btn btn btn-light d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        case 4:
+                            x++;
+                            <a class="menu-btn btn btn-secondary d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        case 5:
+                            x++;
+                            <a class="menu-btn btn btn-danger d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        case 6:
+                            x++;
+                            <a class="menu-btn btn btn-warning d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        case 7:
+                            x++;
+                            <a class="menu-btn btn btn-success d-flex align-items-center text-center justify-content-around bg-gradient" href="~/Menu/@item">
+                                @item
+                            </a>
+                            break;
+                        default://以上都不符合
+                            x = 1;
+                            break;
+                    }
+                }
+            </div>
+        }
+    } 
+</div>
+</div>

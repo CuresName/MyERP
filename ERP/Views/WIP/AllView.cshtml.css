@@ -1,0 +1,122 @@
+﻿div table {
+    text-align: left;
+    font-size: 10px;
+}
+.maindiv {
+    background-color: #f0f0f0
+}
+
+
+
+.container {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    min-width: 1600px;
+    display: none;
+}
+
+.container-div {
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    border: 1px double #000;
+    border-left: white solid 1px;
+    margin: 2px;
+    border-top: white;
+}
+
+.ScollerTable {
+    display: table-caption;
+    overflow: auto;
+    height: 200px;
+    table-layout: fixed;
+
+}
+
+    .ScollerTable thead {
+        position: sticky;
+        top: 0px;
+        background: #c1c1c1;
+        z-index: 1;
+    }
+
+
+.WIPtable {
+    caption-side: top;
+    background-color: #f0f0f0;
+    width: 100%;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: white 2px double;
+    border-right: white 2px double;
+}
+
+    .WIPtable th {
+        padding: 10px 5px 5px 5px;
+        white-space: nowrap;
+    }
+
+.WIPhead {
+    border: 1px solid;
+    max-width: 100%;
+    min-width: 1600px;
+    padding-left: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+    .WIPhead label {
+        margin: 3px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .WIPhead span {
+        width: 100px;
+    }
+
+    .WIPhead input {
+        height: 28px;
+        width: 50%;
+    }
+
+.upload-block {
+    width: 300px;
+    height: 200px;
+    border-style: dotted;
+    border-color: #999999;
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+.dragover {
+    border-color: #FF9900;
+}
+
+.progress {
+    text-align: center;
+    width: 100%;
+}
+
+#drop_block .dragover {
+    border-color: #000;
+    color: #000;
+}
+
+
+.files div{
+    width:100px;
+}
+.files img {
+    width: 60px;
+}
+.file span{
+    width:100px;
+    display:block;
+}
+
+.readinput {
+    background-color: #ccffff;
+}

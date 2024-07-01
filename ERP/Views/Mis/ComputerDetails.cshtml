@@ -1,0 +1,495 @@
+﻿@model IPagedList<南岩ERP.MisEFModels.資訊設備明細表>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+<html>
+<head>
+    @{
+        ViewData["Title"] = "ComputerDetails";
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            alert('@TempData["Error"]');
+        </script>
+    }
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        table {
+            width: 1200px;
+            border-radius: 10px;
+        }
+
+        .table-top {
+            border-top: #ffff0000;
+        }
+
+            .table-top th {
+                border: #ffff0000;
+                width: 120px;
+            }
+
+        td, th {
+            height: 30px;
+        }
+
+        td {
+            text-align: center;
+            border: 3px solid;
+        }
+
+        .hidden-table {
+            background-color: #a9a9a947;
+            --bs-table-bg: #a9a9a91f;
+            --bs-table-border-color: #000000;
+            border-color: black;
+            border: 3px solid;
+        }
+
+            .hidden-table td {
+                background-color: aliceblue;
+            }
+
+        .table-head:hover {
+            background-color: white;
+        }
+
+        .table-hover tr:hover {
+            background-color: #a9a9a91f;
+        }
+
+        .DetailSwitchRow:hover {
+            cursor: pointer;
+        }
+
+
+        .search {
+            padding-bottom: 10px;
+        }
+
+        td .btn {
+            --bs-btn-padding-x: 0;
+            --bs-btn-padding-y: 0;
+            margin: 2px;
+            width: 40px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <a class="btn btn-danger" href="@Url.Action("Index","Mis")">返回</a>
+    @if (ViewBag.新增 > 0)
+    {
+        <a class="btn btn-success" href="@Url.Action("Detail","Mis")">新增</a>
+    }
+    <h1>ComputerDetails</h1>
+
+    <div class="main-contain">
+        <div style="border-radius:10px;border:1px solid black;padding:10px;padding-left: 37px;width: 1300px;">
+            <div class="search">
+                @using (Html.BeginForm("ComputerDetails", "Mis", FormMethod.Get, new { @class = "needs-validation", novalidate = "true" }))
+                {
+                    <div style=" display: flex;align-items: baseline;">
+
+                        內容查詢： @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", style = "width:120px;margin-right:10px;" })
+                        <button style="border-radius:5px;margin-top:5px;width:20px"><i class="fa-brands fa-sistrix"></i></button>
+                    </div>
+                }
+            </div>
+            <table class="table-hover">
+                <tr class="table-top table-head">
+                    <th style="width:35px;">&nbsp;</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr class="table-head">
+                    <th>
+                        編號
+                    </th>
+                    <th>
+                        公司
+                    </th>
+                    <th>
+                        使用部門
+                    </th>
+                    <th colspan="3">
+                        使用者 or 設備名稱
+                        員工編號/姓名/分機
+                    </th>
+                    <th colspan="2">
+                        放置位置
+                    </th>
+                    <th colspan="2">
+                        電腦名稱 or 設備型號
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @{
+                    var i = 0;
+                    i = i + (Model.PageNumber - 1) * 20;
+                }
+                @foreach (var item in Model)
+                {
+                    i++;
+
+                    <tr class="DetailSwitchRow">
+                        <td>@i</td>
+                        <td>
+                            <input class="DetailSwitch" type="checkbox" id="@item.流水號" hidden />
+                            @Html.DisplayFor(m => item.公司)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.使用部門)
+                        </td>
+                        <td colspan="3">
+                            @Html.DisplayFor(m => item.使用者_or_設備名稱_員工編號_姓名_分機)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(m => item.放置位置)
+                        </td>
+                        <td colspan="2">
+                            @Html.DisplayFor(m => item.電腦名稱_or_設備型號)
+                        </td>
+                        <td>
+                            @{
+
+                                if (ViewBag.修改 > 0)
+                                {
+                                    <a href="@Url.Action("Detail",new{流水號=item.流水號,equipmentName=item.電腦名稱_or_設備型號})" class="btn btn-info">修改</a>
+                                }
+                                if (ViewBag.刪除 > 0)
+                                {
+                                    <a href="#" class="delete-link btn btn-secondary" data-id="@item.流水號" data-name="@item.電腦名稱_or_設備型號">刪除</a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                    <tbody class="hidden hidden-table" id="tbody-@item.流水號">
+                        <tr>
+                            <th></th>
+                            <th colspan="2">
+                                設備序號
+                            </th>
+                            <th colspan="4">
+                                IP Address
+                            </th>
+                            <th colspan="4">
+                                MAC ADDrEss
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.設備序號)
+                            </td>
+                            <td colspan="4">
+                                @Html.DisplayFor(m => item.IP_Address)
+                            </td>
+                            <td colspan="4">
+                                @Html.DisplayFor(m => item.MAC_ADDrEss)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th colspan="4">
+                                原始作業系統
+                                免費升級系統
+                            </th>
+                            <th colspan="3">
+                                主機版
+                            </th>
+                            <th colspan="3">
+                                CPU
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td colspan="4">
+                                @Html.DisplayFor(m => item.原始作業系統_免費升級系統)
+                            </td>
+                            <td colspan="3">
+                                @Html.DisplayFor(m => item.主機版)
+                            </td>
+                            <td colspan="3">
+                                @Html.DisplayFor(m => item.CPU)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th colspan="4">
+                                記億體-插槽/速度/最大
+                            </th>
+                            <th colspan="3">
+                                RAM
+                            </th>
+                            <th colspan="3">
+                                硬碟容量
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td colspan="4">
+                                @Html.DisplayFor(m => item.記億體_插槽_速度_最大)
+                            </td>
+                            <td colspan="3">
+                                @Html.DisplayFor(m => item.RAM)
+                            </td>
+                            <td colspan="3">
+                                @Html.DisplayFor(m => item.硬碟容量)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>
+                                PCI-E 4.0 x16
+                            </th>
+                            <th>
+                                PCI-E 3.0 x16
+                            </th>
+                            <th>
+                                PCI-E 3.0 x1
+                            </th>
+                            <th>
+                                PCI-E 2.0 x16
+                            </th>
+                            <th>
+                                PCI-E x4
+                            </th>
+                            <th>
+                                PCI-E x1
+                            </th>
+                            <th colspan="4"></th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI_E_4_0_x16)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI_E_3_0_x16)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI_E_3_0_x1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI_E_2_0_x16)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI_E_x4)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI_E_x1)
+                            </td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>
+                                PCI
+                            </th>
+                            <th>
+                                AGP
+                            </th>
+                            <th>
+                                ISA
+                            </th>
+                            <th>
+                                上網
+                            </th>
+                            <th colspan="2">
+                                網卡1
+                            </th>
+                            <th colspan="2">
+                                網卡2
+                            </th>
+                            <th colspan="2">
+                                網卡3
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                @Html.DisplayFor(m => item.PCI)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.AGP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.ISA)
+                            </td>
+                            <td>
+                                @if (item.上網 == true)
+                                {
+                                    <text>★</text>
+                                }
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.網卡1)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.網卡2)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.網卡3)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>
+                                網路接線盒號碼
+                            </th>
+                            <th>
+                                電話接線盒號碼
+                            </th>
+                            <th colspan="2">
+                                Office版本
+                            </th>
+                            <th>
+                                郵件軟體
+                            </th>
+                            <th colspan="5">
+                                Mail Address
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                @Html.DisplayFor(m => item.網路接線盒號碼)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.電話接線盒號碼)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.Office版本)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.郵件軟體)
+                            </td>
+                            <td colspan="5">
+                                @Html.DisplayFor(m => item.Mail_Address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th colspan="2">
+                                Win10 Microsoft帳戶
+                            </th>
+                            <th colspan="2">
+                                Win10 Microsoft帳戶密碼
+                            </th>
+                            <th colspan="6">
+                                備註
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.Win10_Microsoft帳戶)
+                            </td>
+                            <td colspan="2">
+                                @Html.DisplayFor(m => item.Win10_Microsoft帳戶密碼)
+                            </td>
+                            <td colspan="6">
+                                @Html.DisplayFor(m => item.備註)
+                            </td>
+
+                        </tr>
+                        <tr class="table-top">
+                            <th style="width:35px;">&nbsp;</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+
+    </div>
+
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("ComputerDetails", new { page = Model.PageNumber - 1, Search = ViewBag.CurrentFilter})" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li class="@(page == Model.PageNumber ? "page-item active" : "page-item")">
+                        <a class="page-link" href='@Url.Action("ComputerDetails", new { page, Search = ViewBag.CurrentFilter})'>
+                            @(page)
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    @{
+                        int nextPage = Model.PageNumber + 1;
+                        if (nextPage > Model.PageCount)
+                        {
+                            nextPage = Model.PageCount;
+                        }
+                    }
+                    <a class="page-link" href="@Url.Action("ComputerDetails", new { page = nextPage, Search = ViewBag.CurrentFilter})" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $(".DetailSwitch").change(function () {
+                var id = $(this).attr("id");
+                console.log(id);
+                $("#tbody-" + id).toggleClass("hidden", !this.checked);
+            })
+            $(".DetailSwitchRow").click(function () {
+                var checkbox = $(this).find(".DetailSwitch");
+                var isChecked = checkbox.prop("checked");
+                checkbox.prop("checked", !isChecked).change(); // 手動觸發 change 事件
+            });
+
+            $(".delete-link").click(function (e) {
+                e.preventDefault(); // 防止默认链接行为
+
+                var itemId = $(this).data("id");
+                var itemName = $(this).data("name");
+
+                // 弹出确认对话框
+                var confirmDelete = confirm("確定要刪除 " + itemName + " 嗎？");
+
+                // 如果用户确认删除，则执行删除操作
+                if (confirmDelete) {
+                    window.location.href = "@Url.Action("DeleteComputer")" + "?流水號=" + itemId + "&equipmentName=" + itemName;
+                }
+            });
+        })
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,200 @@
+﻿@model 南岩ERP.Models.QA_018_物質調查記錄_供應商未回覆清單;
+<head>
+    <style>
+        .hideList {
+            display: none;
+        }
+
+        .selectList {
+            --bs-btn-bg: gray;
+        }
+
+        .Lisbtn {
+            --bs-btn-hover-color: #fff;
+            --bs-btn-border-color: #000000;
+            --bs-border-radius: 0;
+            --bs-btn-hover-bg: #143a658f;
+        }
+
+        .spanRotate {
+            transform: rotate(180deg);
+        }
+
+       td span {
+            display: inline-block;
+            margin-left: 150px;
+        }
+        
+        .search {
+            width: 1140px;
+            background: gainsboro;
+        }
+    </style>
+</head>
+@{
+    ViewData["Title"] = "廠商未回覆清單";
+}
+
+<h1>廠商未回覆清單</h1>
+<hr />
+<div>
+    <div>
+        <div style="padding-left:20px;">
+            @Html.ActionLink("返回", "List","QA_018_物質調查記錄",null, new { @class = "btn btn-danger",id="返回"})
+        </div>
+
+
+
+        <div style="background: #d1d0d088;margin:10px 0 0 0 ;width:100%;padding-left:20px;" class="d-flex">
+            <button class="btn Lisbtn selectList" id="companyList">
+                供應商
+            </button>
+            <button class="btn Lisbtn" id="QAList">
+                調查事項
+            </button>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <tbody class="companyList ">
+            @{
+                var list = Model.廠商未回覆清單;
+                foreach (var company in list.Keys)
+                {
+                    var 供應商 = Model.廠商.Where(m => m.供應商編號 == company).First();
+                    <tr>
+                        <td class="List" id="@company">
+                            <div style="width:1000px;">
+                                <span style="margin-left:0;width:300px;">
+                                    @供應商.供應商全名
+                                </span>
+                                <span>
+                                    @company
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </span>
+                            </div>
+                            <table class="hideList @company w-100 table table-secondary">
+                                <tr>
+                                    <th>
+                                        物質調查編號
+                                    </th>
+                                    <th>
+                                        物質調查流水號
+                                    </th>
+                                    <th>
+                                        寄送日期
+                                    </th>
+                                </tr>
+                                @foreach (var item in list[company])
+                                {
+                                    var id = int.Parse(item);
+                                    var 調查事項 = Model.調查事項.Where(m => m.物質調查流水號 == id).First();
+                                    <tr class="">
+                                        <td>
+                                            <span>
+                                                @調查事項.物質調查編號.ToString()
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="~/QA_018_物質調查記錄/Detail/@item">@item</a>
+                                        </td>
+                                        <td>
+                                            @調查事項.寄送日期
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tbody class="QAList hideList">
+
+
+            @{
+                var 調查事項清單 = Model.未回覆清單.OrderBy(m => m.物質調查流水號).DistinctBy(m => m.物質調查流水號);
+                foreach (var item in 調查事項清單)
+                {
+                    var id = item.物質調查流水號;
+                    var 調查事項 = Model.調查事項.Where(m => m.物質調查流水號 == id).First();
+                    var 未回覆清單 = Model.未回覆清單.Where(m => m.物質調查流水號 == id).OrderBy(m => m.物質調查流水號);
+                    <tr>
+                        <td class="List" id="@調查事項.物質調查編號">
+                            <div style="width:1000px;">
+                                <span style="margin-left:0;width:300px;">
+                                    @調查事項.物質調查編號
+                                </span>
+                                <span>
+                                    @item.物質調查流水號
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </span>
+                            </div>
+
+                            <table class="hideList @調查事項.物質調查編號 w-100 table table-secondary">
+                                <tr>
+                                    <th>
+                                        供應商名稱
+                                    </th>
+                                    <th>
+                                        供應商編號
+                                    </th>
+
+                                    <th>
+                                        寄送日期
+                                    </th>
+                                </tr>
+
+                                @foreach (var content in 未回覆清單)
+                                {
+                                    var a = content.供應商編號;
+                                    var 供應商全名 = Model.廠商.Where(m => m.供應商編號 == a).FirstOrDefault();
+                                    <tr>
+                                        <td>
+                                            @供應商全名.供應商全名
+                                        </td>
+                                        <td>
+                                            @content.供應商編號
+                                        </td>
+
+                                        <td>
+                                            @content.寄送日期
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.List').click(function () {
+            var id = $(this).attr("id");
+            $('.' + id + '').toggleClass('hideList');
+            $(this).find("i").toggleClass('spanRotate')
+        });
+        $('button').click(function () {
+            var id = $(this).attr("id");
+            if (id == 'QAList') {
+                $('.' + id + '').removeClass('hideList');
+                $('#' + id + '').addClass('selectList');
+                $('.companyList').addClass('hideList');
+                $('#companyList').removeClass('selectList');
+            }
+            else {
+                $('.' + id + '').removeClass('hideList');
+                $('#' + id + '').addClass('selectList');
+                $('.QAList').addClass('hideList');
+                $('#QAList').removeClass('selectList');
+            }
+
+        })
+    });
+</script>

@@ -1,0 +1,136 @@
+﻿@model List<string>
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<html>
+
+<head>
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            alert('@TempData["Error"]');
+        </script>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <script>alert('@TempData["Success"]')</script>
+    }
+
+    <link href="~/css/MenuStyle.css" rel="stylesheet" />
+
+</head>
+<body>
+    <h1>南岩半導體資訊管理系統</h1>
+    @{
+        string 程式分類 = ViewBag.程式分類 != null ? ViewBag.程式分類 as string : "";
+        List<string> MenuList = ViewBag.Menu;
+    }
+    <div class="" style="display:none" hidden>
+        @{
+
+            Dictionary<string, string[]> links = new Dictionary<string, string[]>
+        {
+        { "品管系統", new string[] { "/Menu/物質調查記錄" } },
+        { "行政系統", new string[] { "/Menu/教育訓練" } },
+        { "唯獨系統", new string[] { "/Menu/物質調查記錄", "/Menu/教育訓練", "/Menu/Mis" } },
+        { "採購系統", new string[] { "/Menu/物質調查記錄" } },
+        { "資管系統", new string[] { "/Menu/Mis" } },
+        { "WIP系統", new string[] { "/Menu/WIP" } }
+        };
+        }
+
+        @foreach (var link in links)
+        {
+            if (MenuList.Contains(link.Key))
+            {
+                foreach (var href in link.Value)
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="@href">@link.Key</a>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <div class="d-flex">
+
+
+        @switch (程式分類)
+        {
+            case "品管系統":
+                if (MenuList.Contains("品管系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/物質調查記錄">物質調查記錄</a>
+                    </div>
+                }
+                break;
+            case "行政系統":
+                if (MenuList.Contains("行政系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/教育訓練">教育訓練</a>
+                    </div>
+                }
+                break;
+            case "唯讀系統":
+                if (MenuList.Contains("唯讀系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/物質調查記錄">物質調查記錄</a>
+                    </div>
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/教育訓練">教育訓練</a>
+                    </div>
+
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/Mis">Mis系統</a>
+                    </div>
+                }
+                break;
+            case "採購系統":
+                if (MenuList.Contains("採購系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/物質調查記錄">物質調查記錄</a>
+                    </div>
+                }
+                break;
+            case "資管系統":
+                if (MenuList.Contains("資管系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/Mis">Mis系統</a>
+                    </div>
+                }
+                break;
+
+            default:
+                if (MenuList.Contains("品管系統") || MenuList.Contains("唯讀系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/物質調查記錄">物質調查記錄</a>
+                    </div>
+                }
+                if (MenuList.Contains("行政系統") || MenuList.Contains("唯讀系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/教育訓練">教育訓練</a>
+                    </div>
+                }
+                if (MenuList.Contains("資管系統") || MenuList.Contains("唯讀系統"))
+                {
+                    <div>
+                        <a class="menu-btn btn btn-info" href="/Menu/Mis">Mis系統</a>
+                    </div>
+                }
+                break;
+        }
+
+
+    </div>
+
+</body>
+</html>

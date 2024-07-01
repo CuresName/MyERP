@@ -1,0 +1,236 @@
+﻿@model IPagedList<南岩ERP.Models.QA_018_物質調查記錄_主檔>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+
+
+
+@{
+    ViewBag.Title = "物質調查列表";
+    var pagedList = (IPagedList)ViewBag.carsModel;
+}
+<head>
+    <script>
+        $(document).ready(function () {
+            var 新增 = parseInt("@ViewBag.新增");
+            if (新增 < 1) {
+                $('#CreateNew').hide();
+            }
+        })
+    </script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            padding-left:20px;
+        }
+
+        .searchBtn {
+            height: 42px;
+        }
+
+        .table {
+            width: max-content;
+        }
+
+        .btn-info {
+            height: auto;
+            width: max-content;
+        }
+
+        .table-row-link:hover {
+            cursor: pointer; /* 滑鼠懸停時顯示可點擊 */
+        }
+
+        .search {
+            width: 100%;
+            background: gainsboro;
+        }
+
+        .Deatiltable {
+            width: 100%;
+        }
+        .search .btn{
+            --bs-btn-border-color:#000000;
+            --bs-border-radius: 0;
+            --bs-btn-hover-bg: #143a658f;
+            --bs-btn-hover-color: white;
+        }
+    </style>
+</head>
+<h2>物質調查列表</h2>
+<hr />
+<div style="margin: 10px 3px">
+    <a class="btn btn-danger" href="@Url.Action("Menu","Menu")">返回</a>
+    <a class="btn btn-success" href="~/QA_018_物質調查記錄/Create" id="CreateNew"> <i class="fa-solid fa-square-plus"></i> 新增調查</a>
+    <a class="btn btn-secondary" href="~/QA_018_物質調查記錄/廠商未回覆清單"> <i class="fa-solid fa-grip"></i> 廠商未回覆清單</a>
+</div>
+<div class="search">
+    @using (Html.BeginForm("List", "QA_018_物質調查記錄", FormMethod.Get))
+    {
+        <div style=" display: flex;align-items: baseline;">
+
+            內容查詢： @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", style = "width:120px;margin-right:10px;" })
+            <button style="border-radius:5px;margin-top:5px;width:20px"><i class="fa-brands fa-sistrix"></i></button>
+        </div>
+    }
+
+    @Html.ActionLink("未結案", "List", new { 結案 = "N", 寄送狀態 = ViewBag.寄送狀態, currentFilter = ViewBag.CurrentFilter }, new { id = "未結案" ,@class="btn",style="margin-left:15px"})
+
+    @Html.ActionLink("已結案", "List", new { 結案 = "Y", 寄送狀態 = ViewBag.寄送狀態, currentFilter = ViewBag.CurrentFilter }, new { id = "已結案" ,@class="btn " })
+
+    @Html.ActionLink("未寄送", "List", new { 寄送狀態 = "N", 結案 = ViewBag.結案, currentFilter = ViewBag.CurrentFilter }, new { id = "未寄送" ,@class="btn" })
+
+    @Html.ActionLink("已寄送", "List", new { 寄送狀態 = "Y", 結案 = ViewBag.結案, currentFilter = ViewBag.CurrentFilter }, new { id = "已寄送" ,@class="btn" })
+
+    @Html.ActionLink("清除", "List",new{}, new {@class="btn" })
+</div>
+
+
+
+<div>
+    <table class="table table-hover Deatiltable">
+        <tr style="text-align: center;">
+            <th>
+                @Html.DisplayName("物質調查流水號")
+            </th>
+            <th>
+                @Html.DisplayName("物質調查編號")
+            </th>
+            <th>
+                @Html.DisplayName("調查事項")
+            </th>
+            <th>
+                @Html.DisplayName("調查人員")
+            </th>
+            <th>
+                @Html.DisplayName("上傳時間")
+            </th>
+            <th>
+                @Html.DisplayName("回覆期限")
+            </th>
+            <th>
+                @Html.DisplayName("結案")
+            </th>
+            <th>
+                @Html.DisplayName("結案日期")
+            </th>
+            <th>
+                @Html.DisplayName("寄送狀態")
+            </th>
+            <th>
+                @Html.DisplayName("寄送日期")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="@item.物質調查流水號" class="table-row-link" data-url="@Url.Action("Detail", new { id = item.物質調查流水號 })">
+                <td>
+                    @Html.DisplayFor(modelItem => item.物質調查流水號)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.物質調查編號)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.調查事項)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.調查人員)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.建檔日期)
+                </td>
+                <td>
+                    @{
+                        if (item.回覆期限 != null)
+                        {
+                            @(((DateTime)item.回覆期限).ToString("yyyy/MM/dd"))
+                        }
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.結案)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.結案日期)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.寄送狀態)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.寄送日期)
+                </td>
+                <td>
+                    @Html.ActionLink("細節", "Detail", new { id = item.物質調查流水號 })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div style="display: flex;flex-direction: column;align-items: center;">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("List", new { page = Model.PageNumber - 1, Search = ViewBag.CurrentFilter, 結案 = ViewBag.結案, 寄送 = ViewBag.寄送, currentFilter = ViewBag.CurrentFilter })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int page = 1; page <= Model.PageCount; page++)
+            {
+                <li class="@(page == Model.PageNumber ? "page-item active" : "page-item")">
+                    <a class="page-link" href='@Url.Action("List", new { page, Search = ViewBag.CurrentFilter, 結案 = ViewBag.結案, 寄送 = ViewBag.寄送, currentFilter = ViewBag.CurrentFilter})'>
+                        @(page)
+                    </a>
+                </li>
+            }
+            <li class="page-item">
+                @{
+                    int nextPage = Model.PageNumber + 1;
+                    if (nextPage > Model.PageCount)
+                    {
+                        nextPage = Model.PageCount;
+                    }
+                }
+                <a class="page-link" href="@Url.Action("List", new { page = nextPage, Search = ViewBag.CurrentFilter, 結案 = ViewBag.結案, 寄送 = ViewBag.寄送, currentFilter = ViewBag.CurrentFilter })" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+@*List 狀態表示*@
+<script>
+    $(document).ready(function () {
+        $(".table-row-link").click(function () {
+            var url = $(this).data("url");
+            window.location.href = url;
+        });
+        if ('@ViewBag.寄送狀態' == 'Y') {
+            $('#已寄送').attr('style', 'background-color:gray');
+        };
+        if ('@ViewBag.寄送狀態' == 'N') {
+            $('#未寄送').attr('style', 'background-color:gray');
+        };
+        if ('@ViewBag.結案' == 'Y') {
+            $('#已結案').attr('style', 'background-color:gray');
+        };
+        if ('@ViewBag.結案' == 'N') {
+            $('#未結案').attr('style', 'background-color:gray;margin-left:15px');
+        };
+
+        $('#Layout_新增').on('click', function (event) {
+            window.location.href = '@Url.Action("Create", "QA_018_物質調查記錄")';
+        });
+    });
+</script>

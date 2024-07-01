@@ -1,0 +1,337 @@
+﻿@model 南岩ERP.教育訓練EFModels.申請表;
+@{
+    ViewData["Title"] = "申請表";
+}
+<style>
+    .head td {
+        width: 50px;
+    }
+
+    table {
+        text-align: center;
+    }
+
+    .outer-container {
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        display: flex;
+        width: 750px;
+        background: white;
+        flex-wrap: wrap;
+    }
+</style>
+<a class="btn btn-danger" href="@Url.Action("申請表清單", "教育訓練")">返回</a>
+<h1>申請表</h1>
+@using (Html.BeginForm("申請表編輯", "教育訓練", FormMethod.Post, new { @enctype = "multipaert/form-data", @class = "needs-validation", novalidate = "novalidate" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="text" value="@Model.申請表編號" name="申請表編號" hidden />
+    <div class="outer-container justify-content-center flex-wrap flex-column align-content-center">
+        <h1 style="padding:0 20px;text-align:center">@Model.申請表編號</h1>
+        <table class="table-bordered">
+            <tr class="head"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr>
+                <th colspan="2">
+                    申請人
+                </th>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.申請人, new { htmlAttributes = new { @class = "form-control", id = "申請人", required = "required" } })
+                </td>
+                <th colspan="2">
+                    申請部門
+                </th>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.申請部門, new { htmlAttributes = new { @class = "form-control", id = "申請部門", required = "required" } })
+                </td>
+                <th colspan="2">
+                    申請日期
+                </th>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.申請日期, new { htmlAttributes = new { @class = "form-control", type = "date", id = "申請日期", required = "required" } })
+                </td>
+
+            </tr>
+            <tr>
+                <th colspan="2">
+                    訓練方式
+                </th>
+                <td colspan="2">
+                    <label>
+                        @Html.RadioButtonFor(m => m.訓練方式, "內訓", new { id = "內訓" })
+                        內訓
+                    </label>
+                    <label>
+                        @Html.RadioButtonFor(m => m.訓練方式, "外訓", new { id = "外訓" })
+                        外訓
+                    </label>
+                </td>
+                <th colspan="2">
+                    聯絡單位
+                </th>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.聯絡單位, new { htmlAttributes = new { @class = "form-control", id = "聯絡單位", required = "required" } })
+                </td>
+                <th colspan="2">
+                    訓練費用
+                </th>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.訓練費用, new { htmlAttributes = new { @class = "form-control", id = "訓練費用", required = "required" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    課程名稱
+                </th>
+                <td colspan="10">
+                    @Html.EditorFor(m => m.課程名稱, new { htmlAttributes = new { @class = "form-control", id = "課程名稱", required = "required" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    訓練目的
+                </th>
+                <td colspan="10">
+                    @Html.EditorFor(m => m.訓練目的, new { htmlAttributes = new { @class = "form-control", id = "訓練目的", required = "required" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    訓練日期
+                </th>
+                <td colspan="4">
+                    @Html.EditorFor(m => m.訓練日期, new { htmlAttributes = new { @class = "form-control", type = "date", id = "訓練日期", required = "required" } })
+                </td>
+                <th>
+                    時間
+                </th>
+                <td colspan="3">
+                    @Html.EditorFor(m => m.時間, new { htmlAttributes = new { @class = "form-control", id = "時間", required = "required" } })
+                </td>
+                <th>
+                    時數
+                </th>
+                <td colspan="1">
+                    @Html.EditorFor(m => m.時數, new { htmlAttributes = new { style = "width:75px", @class = "form-control", id = "時數", required = "required" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    主辦單位
+                </th>
+                <td colspan="5">
+                    @Html.EditorFor(m => m.主辦單位, new { htmlAttributes = new { @class = "form-control", id = "主辦單位", required = "required" } })
+                </td>
+                <th colspan="1">
+                    上課地點
+                </th>
+                <td colspan="5">
+                    @Html.EditorFor(m => m.上課地點, new { htmlAttributes = new { @class = "form-control", id = "上課地點", required = "required" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    上課人員
+                </th>
+                <td colspan="5">
+                    @Html.EditorFor(m => m.上課人員, new { htmlAttributes = new { @class = "form-control", id = "上課人員", required = "required" } })
+                </td>
+                <th colspan="1">
+                    講師
+                </th>
+                <td colspan="5">
+                    @Html.EditorFor(m => m.講師, new { htmlAttributes = new { @class = "form-control", id = "講師", required = "required" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    檢 附 資 料
+                </th>
+                <td colspan="10" class="text-start">
+                    <label>
+                        @Html.CheckBoxFor(m => m.報名表, new { id = "報名表" })
+                        1.報名表
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.宣傳單, new { id = "宣傳單" })
+                        2.宣傳單
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.其它, new { id = "其它" })
+                        3.其它
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.簽到表, new { id = "簽到表" })
+                        4.簽到表
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    成 效 評 估
+                </th>
+                <td colspan="10" class="text-start">
+                    <label>
+                        @Html.CheckBoxFor(m => m.測驗問卷, new { id = "測驗問卷" })
+                        1.報名表
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.結業證書, new { id = "結業證書" })
+                        2.結業證書
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.心得報告, new { id = "心得報告" })
+                        3.心得報告
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.學員滿意度調查表, new { id = "學員滿意度調查表" })
+                        4.學員滿意度調查表
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.實作, new { id = "實作" })
+                        5.實作
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="12" class="text-start">
+                    訓練管理單位協助事項：
+                    @Html.TextAreaFor(m => m.訓練管理單位協助事項, new { @class = "form-control", id = "訓練管理單位協助事項" })
+                </th>
+            </tr>
+            <tr>
+                <th colspan="12" class="text-start">
+                    備註：
+                    @Html.TextAreaFor(m => m.備註, new { @class = "form-control", id = "備註" })
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    核   決
+                </th>
+                <th colspan="2">
+                    審   核
+                </th>
+                <th colspan="4">
+                    承  辦  單  位
+                </th>
+                <th colspan="4">
+                    申  請  單  位
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2">
+
+                </th>
+                <th colspan="2">
+
+                </th>
+                <th>
+                    部門主管
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    承辦人員
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    部門主管
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    申請人
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            <tr>
+                <th class="text-start" colspan="12" rowspan="3">
+                    備註：<br />
+                    保證服務：因公派訓員工，公司視需要得以下列原則要求派訓人員簽訂保証服務合約。需簽合約者，應於
+                    受訓前通知受訓人員並獲得其同意。保證服務期限內，因個人因素離職，則派訓相關訓練費、差旅支出，
+                    應依未達合約年限比例退還公司。<br />
+                    一、一般外訓：凡公費訓練新台幣拾萬元以上或運用上班時間單一專案外訓課程總時數達十個工作天以
+                    上應簽訂一年以上之保證服務期限。<br />
+                    二、技術移轉訓練：凡因技術養成、銜接、移轉等訓練，派訓員工應簽訂至少三個月期以上之保證服務
+                    期限。期限長短以能完成技術移交、確保被交接人能順利銜接為標準。<br />
+                    三、專業證照資格派訓：凡須取得相關公、民營機構認証之專業証照，始得派任之工作。派訓員工應於
+                    訓練合格取得証照日起，簽訂一年期以上之保証服務合約。
+
+                </th>
+            </tr>
+        </table>
+        <div style="text-align:end">
+            QP-03-001-03-D
+        </div>
+        @if (ViewBag.修改 > 0)
+        {
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    確認
+                </button>
+            </div>
+        }
+
+    </div>
+
+}
+
+<script>
+    $(document).ready(function () {
+        if (@ViewBag.修改> 0) {
+            $("input").prop("disabled", false);
+        } else {
+            // 否则启用所有input元素
+            $("input").prop("disabled", true);
+        }
+
+
+        $('form').submit(function (event) {
+            var formIsValid = true;
+            var 訓練方式 = $('input[name="訓練方式"]:checked').val();
+            // 遍歷所有必填字段
+            $(this).find('[required]').each(function () {
+                // 檢查字段是否已填寫
+                console.log($(this).val());
+                if ($(this).val().trim() === '' || 訓練方式 == null) {
+                    // 如果未填寫，標記表單為無效
+                    formIsValid = false;
+                }
+            });
+            // 如果表單是無效的，阻止默認提交行為
+            if (!formIsValid) {
+                event.preventDefault();
+            } 
+        });
+    });
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>

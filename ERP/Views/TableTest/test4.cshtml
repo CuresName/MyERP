@@ -1,0 +1,58 @@
+﻿@model 南岩ERP.Models.TableTest.TableTestView
+@{
+    ViewData["Title"] = "test4";
+}
+
+<h1>test4</h1>
+<div id="editFormContainer">
+    <form>
+
+
+        <input name="id" value="@Model.Table_1.id" />
+        <br />
+        @Html.EditorFor(m => m.Table_1.id)
+        @Html.EditorFor(m => m.Table_1.name)
+        @Html.EditorFor(m => m.Table_1.name1)
+        @Html.EditorFor(m => m.Table_1.name2)
+        @Html.EditorFor(m => m.Table_1.name3)
+        @Html.EditorFor(m => m.Table_1.name4)
+        <br />
+        <br />
+        @Html.EditorFor(m => m.Table_1_preview.id)
+        @Html.EditorFor(m => m.Table_1_preview.name)
+        @Html.EditorFor(m => m.Table_1_preview.name1)
+        @Html.EditorFor(m => m.Table_1_preview.name2)
+        @Html.EditorFor(m => m.Table_1_preview.name3)
+        @Html.EditorFor(m => m.Table_1_preview.name4)
+        <button id="saveChangesBtn">儲存</button>
+    </form>
+</div>
+<div id="conflictMessage" class="alert alert-danger" style="display:none;"></div>
+<div id="successMessage" class="alert alert-success" style="display:none;">資料修改完成</div>
+<script>
+    $(document).ready(function () {
+        $('#saveChangesBtn').on('click', function (e) {
+            e.preventDefault(); //阻止表單的默認提交行為
+            var form = $('#editFormContainer form');
+            var formData = form.serialize();
+            $.ajax({
+                url: '/TableTest/test4',
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                    $('#successMessage').text(data.message).show();
+                    $('#conflictMessage').hide();
+                },
+                error: function (xhr) {
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        $('#conflictMessage').text(xhr.responseJSON.message).show();
+                    } else {
+                        $('#conflictMessage').text('An error occurred').show();
+                    }
+                    $('#successMessage').hide();
+                    alert('Error: ' + xhr.responseText);
+                }
+            })
+        });
+    });
+</script>

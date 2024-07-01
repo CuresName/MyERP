@@ -1,0 +1,398 @@
+﻿@model 南岩ERP.MisEFModels.資訊設備明細表
+<html>
+<head>
+    @{
+        ViewData["Title"] = "Detail";
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            alert('@TempData["Error"]');
+        </script>
+    }
+    <style>
+        table {
+            width: 1000px;
+        }
+
+        .main-form {
+            width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            margin-left: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <a class="btn btn-danger" href="@Url.Action("ComputerDetails","Mis")">返回</a>
+
+    <h1>Detail</h1>
+    @using (Html.BeginForm("ComputerEdit", "Mis", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "main-form needs-validation", novalidate = "true" }))
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    公司
+                </th>
+                <th>
+                    使用部門
+                </th>
+                <th>
+                    使用者
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td class="form">
+                    @Html.DropDownListFor(m => m.公司, new List<SelectListItem>
+                {
+                new SelectListItem { Text = "南岩", Value = "南岩" },
+                new SelectListItem { Text = "南洋", Value = "南洋" }
+                }, "-- 請選擇公司 --", new { @class = "form-select", required = "true" })
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="invalid-feedback">
+                        請選擇公司
+                    </div>
+
+                <td>
+                        @Html.EditorFor(m => m.流水號, new { htmlAttributes = new { @class = "", hidden = "True" } })
+                        @Html.EditorFor(m => m.使用部門, new { htmlAttributes = new { @class = "form-control", placeholder = "使用部門", required = "true" } })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="invalid-feedback">
+                        請輸入部門
+                    </div>
+
+                </td>
+                <td>
+                        @Html.EditorFor(m => m.使用者_or_設備名稱_員工編號_姓名_分機, new { htmlAttributes = new { @class = "form-control", placeholder = "使用者" } })
+                </td>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    放置位置
+                </th>
+                <th>
+                    電腦名稱 or 設備型號
+                </th>
+                <th>
+                    設備序號
+                </th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DropDownListFor(m => m.放置位置, new List<SelectListItem>
+                {
+                new SelectListItem { Text = "1F - FVI", Value = "1F - FVI" },
+                new SelectListItem { Text = "1F - MARK", Value = "1F - MARK" },
+                new SelectListItem { Text = "1F - MOLD", Value = "1F - MOLD" },
+                new SelectListItem { Text = "1F - TF", Value = "1F - TF" },
+                new SelectListItem { Text = "1F - 成品倉", Value = "1F - 成品倉" },
+                new SelectListItem { Text = "1F - 客供品倉", Value = "1F - 客供品倉" },
+                new SelectListItem { Text = "1F - 原物料倉", Value = "1F - 原物料倉" },
+                new SelectListItem { Text = "1F - 測試區", Value = "1F - 測試區" },
+                new SelectListItem { Text = "1F - 電信機房", Value = "1F - 電信機房" },
+                new SelectListItem { Text = "1F - 警衛室", Value = "1F - 警衛室" },
+                new SelectListItem { Text = "3F - DB", Value = "3F - DB" },
+                new SelectListItem { Text = "3F - QC", Value = "3F - QC" },
+                new SelectListItem { Text = "3F - WB", Value = "3F - WB" },
+                new SelectListItem { Text = "3F - 切割室", Value = "3F - 切割室" },
+                new SelectListItem { Text = "3F - 製造部", Value = "3F - 製造部" },
+                new SelectListItem { Text = "4F - 行政課", Value = "4F - 行政課" },
+                new SelectListItem { Text = "4F - 品保X光室", Value = "4F - 品保X光室" },
+                new SelectListItem { Text = "4F - 品保部", Value = "4F - 品保部" },
+                new SelectListItem { Text = "4F - 品保實驗室", Value = "4F - 品保實驗室" },
+                new SelectListItem { Text = "4F - 研發部", Value = "4F - 研發部" },
+                new SelectListItem { Text = "4F - 財會部", Value = "4F - 財會部" },
+                new SelectListItem { Text = "4F - 測試部", Value = "4F - 測試部" },
+                new SelectListItem { Text = "4F - 業務部", Value = "4F - 業務部" },
+                new SelectListItem { Text = "4F - 資訊機房", Value = "4F - 資訊機房" },
+                new SelectListItem { Text = "4F - 新設定", Value = "4F - 新設定" },
+                }, "-- 請選擇放置位置 --", new { @class = "form-select" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="invalid-feedback">
+                        請選擇放置位置
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.電腦名稱_or_設備型號, new { htmlAttributes = new { @class = "form-control", placeholder = "設備名稱", required = "true" } })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="invalid-feedback">
+                        請輸入設備名稱
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.設備序號, new { htmlAttributes = new { @class = "form-control", placeholder = "設備序號" } })
+                </td>
+                <th></th>
+            </tr>
+            <tr>
+
+                <th colspan="2">
+                    IP Address
+                </th>
+                <th colspan="2">
+                    MAC ADDrEss
+                </th>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.IP_Address, new { htmlAttributes = new { @class = "form-control", placeholder = "IP" } })
+                </td>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.MAC_ADDrEss, new { htmlAttributes = new { @class = "form-control", placeholder = "MAC" } })
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    作業系統
+                </th>
+                <th colspan="2">
+                    主機版
+                </th>
+                <th>
+                    CPU
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.原始作業系統_免費升級系統, new { htmlAttributes = new { @class = "form-control", placeholder = "作業系統" } })
+                </td>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.主機版, new { htmlAttributes = new { @class = "form-control", placeholder = "主機版" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.CPU, new { htmlAttributes = new { @class = "form-control", placeholder = "CPU" } })
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    記億體-插槽/速度/最大
+                </th>
+                <th>
+                    RAM
+                </th>
+                <th>
+                    硬碟容量
+                </th>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.記億體_插槽_速度_最大, new { htmlAttributes = new { @class = "form-control", placeholder = "記億體" } })
+                </td>
+
+                <td>
+                    @Html.EditorFor(m => m.RAM, new { htmlAttributes = new { @class = "form-control", placeholder = "RAM" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.硬碟容量, new { htmlAttributes = new { @class = "form-control", placeholder = "硬碟" } })
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    PCI-E 4.0 x16
+                </th>
+                <th>
+                    PCI-E 3.0 x16
+                </th>
+                <th>
+                    PCI-E 3.0 x1
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.PCI_E_4_0_x16, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI-E 4.0 x16" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.PCI_E_3_0_x16, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI-E 3.0 x16" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.PCI_E_3_0_x1, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI-E 3.0 x1" } })
+                </td>
+                <th></th>
+            <tr>
+                <th>
+                    PCI-E 2.0 x16
+                </th>
+                <th>
+                    PCI-E x4
+                </th>
+                <th>
+                    PCI-E x1
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.PCI_E_2_0_x16, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI-E 2.0 x16" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.PCI_E_x4, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI-E x4" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.PCI_E_x1, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI-E x1" } })
+                </td>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    PCI
+                </th>
+                <th>
+                    AGP
+                </th>
+                <th>
+                    ISA
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.PCI, new { htmlAttributes = new { @class = "form-control", placeholder = "PCI" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.AGP, new { htmlAttributes = new { @class = "form-control", placeholder = "AGP" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.ISA, new { htmlAttributes = new { @class = "form-control", placeholder = "ISA" } })
+                </td>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    上網
+                </th>
+                <th>
+                    網卡1
+                </th>
+                <th>
+                    網卡2
+                </th>
+                <th>
+                    網卡3
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.上網, new { htmlAttributes = new { id = "上網" } })<label for="上網">有上網</label>
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.網卡1, new { htmlAttributes = new { @class = "form-control", placeholder = "網卡1" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.網卡2, new { htmlAttributes = new { @class = "form-control", placeholder = "網卡2" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.網卡3, new { htmlAttributes = new { @class = "form-control", placeholder = "網卡3" } })
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    網路接線盒號碼
+                </th>
+                <th>
+                    電話接線盒號碼
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.EditorFor(m => m.網路接線盒號碼, new { htmlAttributes = new { @class = "form-control", placeholder = "網路接線盒" } })
+                </td>
+                <td>
+                    @Html.EditorFor(m => m.電話接線盒號碼, new { htmlAttributes = new { @class = "form-control", placeholder = "電話接線盒" } })
+                </td>
+                <th></th>
+                <th></th>
+            </tr>
+
+
+            <tr>
+                <th colspan="2">
+                    Office版本
+                </th>
+                <th>
+                    郵件軟體
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.Office版本, new { htmlAttributes = new { @class = "form-control", placeholder = "Office" } })
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.郵件軟體, new List<SelectListItem>
+                {
+                new SelectListItem { Text = "Outlook", Value = "Outlook" },
+                new SelectListItem { Text = "DreamMail", Value = "DreamMail" }
+                }, "-- 請選擇郵件軟體 --", new { @class = "form-select" })
+                </td>
+                <th></th>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    Win10 Microsoft帳戶
+                </th>
+                <th colspan="2">
+                    Win10 Microsoft帳戶密碼
+                </th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.Win10_Microsoft帳戶, new { htmlAttributes = new { @class = "form-control", placeholder = "Microsoft帳戶" } })
+                </td>
+                <td colspan="2">
+                    @Html.EditorFor(m => m.Win10_Microsoft帳戶密碼, new { htmlAttributes = new { @class = "form-control", placeholder = "Microsoft密碼" } })
+                </td>
+            </tr>
+
+
+            <tr>
+                <th colspan="4">
+                    備註
+                </th>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.EditorFor(m => m.備註, new { htmlAttributes = new { @class = "form-control", placeholder = "備註" } })
+                </td>
+            </tr>
+
+
+        </table>
+        <button class="btn btn-primary">儲存</button>
+    }
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>
+</html>

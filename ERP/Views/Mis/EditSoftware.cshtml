@@ -1,0 +1,155 @@
+﻿@model 南岩ERP.MisEFModels.軟體版權明細
+<html>
+<head>
+    @{
+        ViewData["Title"] = "EditSoftware";
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            alert('@TempData["Error"]');
+        </script>
+    }
+</head>
+<body>
+    <a class="btn btn-danger" href="@Url.Action("SoftwareDetails","Mis")">返回</a>
+
+    <h1>EditSoftware</h1>
+    <div class="main-contain">
+        @using (Html.BeginForm("EditSoftware", "Mis", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "needs-validation", novalidate = "true" }))
+        {
+            <table class="table">
+                @Html.EditorFor(m => m.流水號,new{htmlAttributes = new {hidden="true"}})
+                <tr>
+                    <th>
+                        公司
+                    </th>
+                    <th>
+                        軟體名稱
+                    </th>
+                    <th>
+                        數量
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(m => m.公司, new List<SelectListItem>
+                    {
+                    new SelectListItem { Text = "南岩", Value = "南岩" },
+                    new SelectListItem { Text = "南洋", Value = "南洋" }
+                    }, "-- 請選擇公司 --", new { @class = "form-select", required = "true" }) 
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="invalid-feedback">
+                            請選擇公司
+                        </div>
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.軟體名稱, new { htmlAttributes = new { @class = "form-control", required = "true" }})
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="invalid-feedback">
+                            請選擇公司
+                        </div>
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.數量, new { htmlAttributes = new { @class = "form-control"}})
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        安裝電腦名稱
+                    </th>
+                    <th>
+                        Mac
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(m => m.安裝電腦名稱, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.MAC, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        產品序號
+                    </th>
+                    <th>
+                        備註
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(m => m.產品序號, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.備註, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        帳號
+                    </th>
+                    <th>
+                        密碼
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(m => m.帳號, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.密碼, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        已使用
+                    </th>
+                    <th>
+                        主機板故障報廢
+                    </th>
+                    <th>
+                        未使用
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.EditorFor(m => m.已使用, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.主機板故障報廢, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.未使用, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+
+            </table>
+            <button class="btn btn-primary">儲存</button>
+        }
+    </div>
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,381 @@
+﻿@model 南岩ERP.Models.HR_001_ModelsManager
+<html>
+<head>
+    <style>
+
+        .selectList {
+            width: 200px;
+        }
+
+        .outer-container {
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-left: auto;
+            margin-right:auto;
+            display: flex;
+            width: auto;
+            background: white;
+            flex-wrap: wrap;
+        }
+        td{
+            padding:5px;
+        }
+
+    </style>
+</head>
+<body>
+    @{
+        ViewData["Title"] = "訓練基準表";
+    }
+    <a class="btn btn-danger" href="@Url.Action("index", "教育訓練")">返回</a>
+    <h1>訓練基準表</h1>
+    <div>
+        @* <div>
+        <table class="table-bordered">
+        <thead>
+        <tr>
+        <th colspan="10">
+        訓練基準表
+        </th>
+        </tr>
+
+        </thead>
+        <tr>
+        <td>
+        職級
+        </td>
+        <td>
+        職別
+        </td>
+        <td>
+        職務
+        </td>
+        <td>
+        業務部
+        </td>
+        <td>
+        研發部
+        </td>
+        <td>
+        製造部
+        </td>
+        <td>
+        品保部
+        </td>
+        <td>
+        測試部
+        </td>
+        <td>
+        財務部
+        </td>
+        <td>
+        管理部
+        </td>
+        </tr>
+        <tr>
+        <td>
+        B1~B5
+        </td>
+        <td>
+        幕僚職
+        </td>
+        <td>
+        管理師
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>
+        <p>E2~E5</p>
+        <p>D2~D5</p>
+        </td>
+        <td>
+        技術職
+        </td>
+        <td>
+        工程師
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>
+        C2~C5
+        </td>
+        <td>
+        業務職
+        </td>
+        <td>
+        專員
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td rowspan="2">
+        T1~T2
+        </td>
+        <td>
+        技術職
+        </td>
+        <td>
+        儲備工程師
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+        <td>
+        技術職
+        </td>
+        <td>
+        作業員
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        </table>
+        </div> *@
+    </div>
+    
+    <hr />
+    <div>
+
+        @using (Html.BeginForm("訓練基準表", "教育訓練", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="outer-container justify-content-center">
+                @Html.DropDownListFor(m => m.部門, Model.部門, new { @class = "form-select selectList dropdown-toggle", id = "部門名稱" })
+                <select id="職務名稱" name="職務名稱" class="form-select selectList dropdown-toggle">
+                    <option value="">請選擇</option>
+                </select>
+                <button class="form-control w-auto ">確定</button>
+            </div>
+        }
+
+
+
+        <form method="post" action="/教育訓練Controller/訓練基準表excel" enctype="multipart/form-data">
+            <div class="outer-container justify-content-center flex-column align-items-center">
+                <span name="部門編號" hidden>
+                    @Html.EditorFor(model => model.職務表.部門編號)
+                </span>
+                <table class="table-bordered">
+
+                    <tr>
+                        <td>
+                            職級
+                        </td>
+                        <td>
+                            <span name="職級">
+                                @Html.EditorFor(model => model.職務表.部門編號, new { htmlAttributes = new { @class = "form-control", id = "部門編號", hidden = "true" } })
+                                @Html.EditorFor(model => model.職務表.職級, new { htmlAttributes = new { @class = "form-control", id = "職級", @readonly="true" } })
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            職別
+                        </td>
+                        <td>
+                            <span name="職別">
+                                @Html.EditorFor(model => model.職務表.職別, new { htmlAttributes = new { @class = "form-control", id = "職別", @readonly = "true" } })
+                            </span>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            職務
+                        </td>
+                        <td>
+                            <span name="職務">
+                                @Html.EditorFor(model => model.職務表.職務, new { htmlAttributes = new { @class = "form-control", id = "職務", @readonly = "true" } })
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            課程編號
+                        </td>
+                        <td>
+                            課程名稱
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            公司沿革及經營理念
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            公司規章簡介
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            工安衛暨消防課程
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            ISO及HSF環境限用物質管制與查驗
+                        </td>
+                    </tr>
+                    @foreach (var item in Model.文件列表)
+                    {
+                        <tr>
+                            <td>
+                                <input class="form-control" name="courseId" value="@item" />
+                            </td>
+                            <td>
+                                <input class="form-control" name="courseName" value="@Model.文件表.Where(m=>m.文件編號==item).Select(m=>m.文件名稱).First().ToString()" />
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2">
+                            訓練方式
+                            <input onclick="return false" type="radio" name="trainingType" id="內訓" value="內訓" @((Model.職務表.訓練方式.Contains("內訓")) ? "checked" : "") />
+                            <label for="內訓">內訓</label>
+                            <input onclick="return false" type="radio" name="trainingType" id="外訓" value="外訓" @((Model.職務表.訓練方式.Contains("外訓")) ? "checked" : "") />
+                            <label for="外訓">外訓</label>
+                            <br />
+                            檢定方式
+                            <input onclick="return false" type="checkbox" name="testType" id="無" value="無" @((Model.職務表.筆試) == 0 && (Model.職務表.口試) == 0 && (Model.職務表.實作) == 0 ? "checked" : "") />
+                            <label for="無">無</label>
+                            <input onclick="return false" type="checkbox" name="testType" id="筆試" value="筆試" @((Model.職務表.筆試) == 1 ? "checked" : "") />
+                            <label for="筆試">筆試</label>
+                            <input onclick="return false" type="checkbox" name="testType" id="口試" value="口試" @((Model.職務表.口試) == 1 ? "checked" : "") />
+                            <label for="口試">口試</label>
+                            <input onclick="return false" type="checkbox" name="testType" id="實作" value="實作" @((Model.職務表.實作) == 1 ? "checked" : "") />
+                            <label for="實作">實作</label>
+                            <input onclick="return false" type="checkbox" name="testType" id="其它" value="其它" @((Model.職務表.其它) != null ? "checked" : "") />
+                            <label for="其它">其它</label>
+                        </td>
+                    </tr>
+                </table>           
+                <button class="btn btn-primary" style="margin-top:10px;" asp-action="訓練基準表excel">下載訓練基準表</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#無').change(function () {
+                if ($(this).prop('checked')) {
+                    $("input[name='testType']").prop('checked', false);
+                    $(this).prop('checked', true);
+                }
+            });
+            $("input[name='testType']").not('#無').change(function () {
+                if ($(this).prop('checked')) {
+                    // 如果選中其它選項，取消 "無" 選項的勾選
+                    $('#無').prop('checked', false);
+                }
+            });
+        });
+        $(document).ready(function () {
+            var 選單預設 = $('input[name="職務表.職務"]').val();
+            var 部門編號 = $('#部門編號').val();
+            console.log(選單預設 + 部門編號)
+            $.ajax({
+                type: 'POST',
+                url: '/教育訓練/取得職務名稱',
+                data: {
+                    部門編號: 部門編號,
+                },
+                success: function (data) {
+                    var selectList = $('#職務名稱');
+                    selectList.empty();
+                    // 判断數據類型是否為數組
+                    if (Array.isArray(data)) {
+                        // 遍歷數組，並確保每个元素都包含 Value 和 Text 属性
+                        data.forEach(function (item) {
+                            if (item.hasOwnProperty('value') && item.hasOwnProperty('text')) {
+                                selectList.append($('<option></option>').val(item.value).text(item.text));
+                            }
+                        });
+
+                    }
+                    else {
+                        console.log('返回數據不是數组類型或格式不正确');
+                    }
+                    $('#職務名稱').val(選單預設);
+                    $('#部門名稱').val(部門編號);
+                },
+                error: function () {
+                    alert('無法從數據庫獲取職位信息。');
+                }
+            });
+            $('#部門名稱').change(function () {
+                var selectedDepartment = $(this).val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/教育訓練/取得職務名稱',
+                    data: {
+                        部門編號: selectedDepartment,
+
+                    },
+                    success: function (data) {
+                        var selectList = $('#職務名稱');
+                        selectList.empty();
+                        // 判断數據類型是否為數組
+                        if (Array.isArray(data)) {
+                            // 遍歷數組，並確保每个元素都包含 Value 和 Text 属性
+                            data.forEach(function (item) {
+                                if (item.hasOwnProperty('value') && item.hasOwnProperty('text')) {
+                                    selectList.append($('<option></option>').val(item.value).text(item.text));
+                                }
+                            });
+                        }
+                        else {
+                            console.log('返回數據不是數组類型或格式不正确');
+                        }
+                    },
+                    error: function () {
+                        alert('無法從數據庫獲取職位信息。');
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>

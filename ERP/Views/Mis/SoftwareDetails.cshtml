@@ -1,0 +1,203 @@
+﻿@model IPagedList<南岩ERP.MisEFModels.軟體版權明細>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+<html>
+<head>
+    @{
+        ViewData["Title"] = "SoftwareDetails";
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            alert('@TempData["Error"]');
+        </script>
+    }
+    <style>
+        td .btn {
+            --bs-btn-padding-x: 0;
+            --bs-btn-padding-y: 0;
+            margin: 2px;
+            width: 40px;
+            height: 30px;
+        }
+
+        .search {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a class="btn btn-danger" href="@Url.Action("Index","Mis")">返回</a>
+    @if (ViewBag.新增 > 0)
+    {
+        <a class="btn btn-success" href="@Url.Action("EditSoftware","Mis")">新增</a>
+    }
+
+    <h1>SoftwareDetails</h1>
+    <div class="main-contain">
+        <div class="search">
+            @using (Html.BeginForm("SoftwareDetails", "Mis", FormMethod.Get))
+            {
+                <div style=" display: flex;align-items: baseline;">
+
+                    內容查詢： @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", style = "width:120px;margin-right:10px;" })
+                    <button style="border-radius:5px;margin-top:5px;width:20px"><i class="fa-brands fa-sistrix"></i></button>
+                </div>
+            }
+        </div>
+
+        <table class="table-bordered">
+            <tr>
+                <th>
+                    公司
+                </th>
+                <th>
+                    軟體名稱
+                </th>
+                <th>
+                    數量
+                </th>
+                <th>
+                    安裝電腦名稱
+                </th>
+                <th>
+                    Mac
+                </th>
+                <th>
+                    產品序號
+                </th>
+                <th>
+                    備註
+                </th>
+                <th>
+                    帳號
+                </th>
+                <th>
+                    密碼
+                </th>
+                <th>
+                    已使用
+                </th>
+                <th>
+                    主機板故障報廢
+                </th>
+                <th>
+                    未使用
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr id="@item.流水號">
+                    <td>
+                        @Html.DisplayFor(m => item.公司)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.軟體名稱)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.數量)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("SoftToDetail", "Mis", new {equipmentName = item.安裝電腦名稱 })">@item.安裝電腦名稱</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.MAC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.產品序號)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.備註)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.帳號)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.密碼)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.已使用)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.主機板故障報廢)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.未使用)
+                    </td>
+                    <td>
+                        @{
+
+                            if (ViewBag.修改 > 0)
+                            {
+                                <a href="@Url.Action("EditSoftware","Mis",new{流水號=item.流水號,SoftwareName=item.軟體名稱})" class="btn btn-info">修改</a>
+                                <br />
+                            }
+                            if (ViewBag.刪除 > 0)
+                            {
+                                <a href="#" class="delete-link btn btn-secondary" data-id="@item.流水號" data-name="@item.軟體名稱">刪除</a>
+                            }
+                        }
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+
+
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("SoftwareDetails", new { page = Model.PageNumber - 1 , Search = ViewBag.CurrentFilter})" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li class="@(page == Model.PageNumber ? "page-item active" : "page-item")">
+                        <a class="page-link" href='@Url.Action("SoftwareDetails", new { page, Search = ViewBag.CurrentFilter})'>
+                            @(page)
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    @{
+                        int nextPage = Model.PageNumber + 1;
+                        if (nextPage > Model.PageCount)
+                        {
+                            nextPage = Model.PageCount;
+                        }
+                    }
+                    <a class="page-link" href="@Url.Action("SoftwareDetails", new { page = nextPage, Search = ViewBag.CurrentFilter})" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".delete-link").click(function (e) {
+                e.preventDefault(); // 防止默认链接行为
+
+                var itemId = $(this).data("id");
+                var itemName = $(this).data("name");
+
+                // 弹出确认对话框
+                var confirmDelete = confirm("確定要刪除 " + itemName + " 嗎？");
+
+                // 如果用户确认删除，则执行删除操作
+                if (confirmDelete) {
+                    window.location.href = "@Url.Action("DeleteSoftware")" + "?流水號=" + itemId + "&SoftwareName=" + itemName;
+                }
+            });
+        })
+    </script>
+</body>
+</html>
+

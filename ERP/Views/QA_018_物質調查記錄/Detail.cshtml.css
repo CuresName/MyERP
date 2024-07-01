@@ -1,0 +1,160 @@
+﻿input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.Sendstatu {
+    background-color: #117928bd;
+}
+
+.CreateStatu {
+    background-color: #ed9d3987;
+}
+
+.hide {
+    display: none;
+}
+
+input[readonly],
+textarea[readonly] {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.table {
+    vertical-align: middle;
+}
+
+    .table th, .table td {
+        white-space: nowrap;
+    }
+
+.form-control {
+    display: inline-block;
+    max-width: 100%;
+}
+
+textarea {
+    height: 120px;
+    font-size: 14px;
+    width: 331px;
+    margin: 0;
+    padding: 6px 10px;
+    line-height: 1.2;
+    resize: none;
+}
+
+.serial-number {
+    width: 55px;
+    text-align: center;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.container-fluid {
+    display: flex;
+    padding: 10px;
+    align-items: baseline;
+}
+
+.outer-container {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-left: auto;
+    display: flex;
+    width: 750px;
+    background: white;
+    flex-wrap: wrap;
+}
+
+.table-wrapper {
+    margin: 10px 0;
+    box-shadow: 0px 0px 4px;
+    border: 5px double #3B3B3B;
+    height: 300px;
+    width: 500px;
+    padding: 5px;
+    background-color: white;
+}
+
+#CompanyCheck,
+#CompanyChecked {
+    border: 1px solid;
+    border-radius: 1%;
+    padding: 10px;
+}
+
+.CompanySelect {
+    text-align: center;
+    border: 1px solid;
+    border-radius: 5px;
+    background: darkgray;
+    color: black;
+    margin: 0 0 10px;
+}
+
+.functionList {
+    position: relative;
+}
+
+.CreateBtn {
+    --bs-btn-hover-bg: #505050b0;
+    --bs-btn-bg: white;
+    --bs-btn-border-color: gainsboro;
+    color: black;
+    width: auto;
+    text-decoration: none;
+}
+/*
+        .btn-outline-info {
+            --bs-btn-bg: white;
+        }
+        */
+
+.OnlyRead {
+    background-color: gray;
+}
+
+.statu {
+    width: auto;
+    position: absolute;
+    left: 50%;
+    color: red;
+    background: yellow;
+}
+
+select {
+    width: 331px;
+}
+
+.content {
+    display: block;
+}
+
+.form-select {
+    margin-top: 10px;
+}
+
+.endYN {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+    .endYN[disabled=disabled] {
+        background-color: rgba(128, 128, 128, 0.1);
+    }
+

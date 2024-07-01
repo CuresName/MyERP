@@ -1,0 +1,362 @@
+﻿@model 南岩ERP.Models.HR_001_ModelsManager
+
+@{
+    ViewData["Title"] = "計畫表";
+}
+
+<style>
+    .ViewTable th {
+        width: 10px;
+        height: auto;
+    }
+
+    .modal-content {
+        width: 600px;
+    }
+
+    .ViewTable {
+        width: 1200px;
+    }
+
+    table tr {
+        height: 50px;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .上課時數 {
+        display: inline-block;
+        width: 70px;
+    }
+
+    td a {
+        height: 35px;
+        width: 60px;
+        margin: 5px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .modal-body {
+        padding: 0;
+    }
+
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-button {
+        background: transparent;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border: 1px solid slategrey;
+    }
+
+    ::-webkit-scrollbar-track {
+        box-shadow: transparent;
+    }
+
+</style>
+<a class="btn btn-danger" href="@Url.Action("計畫表清單", "教育訓練")">返回</a>
+
+<h1>計畫表</h1>
+
+<h1>@Model.計畫表Model.計畫表編號</h1>
+<div class="main-contain">
+    <input type="text" name="計畫表編號" id="計畫表編號" value="@Model.計畫表Model.計畫表編號" hidden />
+    <table class="table-bordered text-center ViewTable">
+        <thead>
+            <tr class="header">
+                @for (int i = 0; i < 22; i++)
+                {
+                    <th></th>
+                }
+            </tr>
+            <tr>
+                <th rowspan="7" style="writing-mode: vertical-rl;">
+                    項次
+                </th>
+                <th rowspan="7" style="writing-mode: vertical-rl;width: 40px;">
+                    提出單位
+                </th>
+                <th rowspan="7" style="writing-mode: vertical-rl;width: 60px;">
+                    類別
+                </th>
+                <th rowspan="7" style="writing-mode: vertical-rl;width: 140px;">
+                    課程名稱
+                </th>
+                <th rowspan="7" style="writing-mode: vertical-rl;width: 200px;">
+                    課程大綱
+                </th>
+                <th colspan="3" rowspan="2" style="writing-mode: horizontal-tb;">
+                    階層別
+                </th>
+                <th colspan="7" rowspan="2" style="writing-mode:horizontal-tb;">
+                    訓練單位/對象
+                </th>
+                <th colspan="5" rowspan="2" style="writing-mode: horizontal-tb;">
+                    訓練資訊
+                </th>
+                <th colspan="2" rowspan="2" style="writing-mode:horizontal-tb;">
+                    訓練規劃
+                </th>
+                <td rowspan="7" style="width:80px;">
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    基層主管
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    工管理師
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    作業人員
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    業務部
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    研發部
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    製造部
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    品保部
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    測試部
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    財務部
+                </th>
+                <th rowspan="5" style="writing-mode: vertical-rl;">
+                    管理部
+                </th>
+                <th rowspan="5" style="width: 80px;">
+                    預計上課<br>
+                    日　　期
+                </th>
+                <th rowspan="5" style="width: 40px;">
+                    上課時數
+                </th>
+                <th rowspan="5" style="width: 90px;">
+                    訓練方式<br>
+                    內訓／外訓
+                </th>
+                <th rowspan="5" style="width: 50px;">
+                    講師
+                </th>
+                <th rowspan="5" style="width: 40px;">
+                    預計費用
+                </th>
+                <th rowspan="5" style="width: 75px;">
+                    預計參訓<br>
+                    人數
+                </th>
+                <th rowspan="5" style="width: 90px;">
+                    預計總費用
+                </th>
+            </tr>
+            <tr style="height:50px;"></tr>
+            <tr style="height:50px;"></tr>
+            <tr style="height:50px;"></tr>
+            <tr style="height:50px;"></tr>
+        </thead>
+        <tbody id="">
+
+            @{
+                var j = 1;
+            }
+            @foreach (var item in Model.教育訓練計畫表內容)
+            {
+                <tr>
+                    <td>
+                        <input type="text" name="計畫表內容流水號" value="@item.計畫表內容流水號" hidden />
+
+                        @j
+                    </td>
+                    <td>
+                        @item.提出單位
+                    </td>
+                    <td>
+                        @item.類別
+                    </td>
+                    <td>
+                        @item.課程名稱
+                    </td>
+                    <td>
+                        @item.課程大綱
+                    </td>
+                    <td>
+                        @(item.管理人員 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.工管理師 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.作業人員 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.業務部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.研發部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.製造部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.品保部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.測試部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.財務部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @(item.管理部 == true ? "⬛" : "")
+                    </td>
+                    <td>
+                        @item.預計上課日期.ToString("yyyy/MM/dd")
+                    </td>
+                    <td>
+                        @item.上課時數 HR
+                    </td>
+                    <td>
+                        @item.訓練方式
+                    </td>
+                    <td>
+                        @item.講師
+                    </td>
+                    <td>
+                        @item.預計費用
+                    </td>
+                    <td>
+                        @item.預計參訓人數
+                    </td>
+                    <td>
+                        @item.預計總費用
+                    </td>
+                    <td>
+                        <input type="text" name="計畫表內容流水號" value="@item.計畫表內容流水號" hidden />
+                        @{
+                            if (ViewBag.修改 > 0)
+                            {
+                                <button type="button" class="btn btn-info Editbtn" id="Edit" data-bs-toggle="modal" data-bs-target="#Modal">
+                                    編輯
+                                </button>
+                                <br />
+                                <a id="@item.計畫表編號" onclick="event.stopPropagation()" data-id="@item.計畫表編號" href="#" class="btn btn-secondary delete">刪除</a>
+
+                            }
+                        }
+
+                    </td>
+                </tr>
+                j++;
+            }
+
+
+        </tbody>
+    </table>
+</div>
+@if (ViewBag.修改 > 0)
+{
+    <div>
+        <button type="button" class="btn btn-success Editbtn" data-bs-toggle="modal" data-bs-target="#Modal">
+            新增
+        </button>
+    </div>
+}
+<!-- Modal -->
+<div class="modal fade" id="Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">計畫表內容編輯</h5>
+                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <iframe id="Editiframe" class="w-100" style="height:800px;margin:0 20px;"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close" id="close" data-bs-dismiss="modal">關閉視窗</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+
+
+<script>
+    $(document).ready(function () {
+        $('.close').click(function () {
+            var 計畫表編號 = '@TempData["計畫表編號"]';
+            console.log("wqeqwe  " + 計畫表編號);
+        });
+        // 在A页面中，监听来自iframe的消息
+
+        $('.Editbtn').click(function () {
+            // 找到相關的資料
+            var 流水號 = $(this).closest("td").find("input[name='計畫表內容流水號']").val();
+            var 計畫表編號 = $("#計畫表編號").val();
+            console.log(流水號 + " " + 計畫表編號);
+            // 動態設置 URL
+            var url = !流水號 ? '@Url.Action("計畫表Edit內容", "教育訓練")' + "?計畫表編號=" + 計畫表編號 :
+                '@Url.Action("計畫表Edit內容", "教育訓練")' + "?計畫表編號=" + 計畫表編號 + "&計畫表內容流水號=" + 流水號;
+            console.log('@Url.Action("計畫表Edit內容", "教育訓練")');
+            // 找到 iframe 元素
+            var iframe = document.getElementById("Editiframe");  // 將 "yourIframeId" 替換為實際 iframe 的 ID
+
+            // 設置 iframe 的 src 屬性
+            iframe.src = url;
+            window.addEventListener("message", function (event) {
+                // 确保消息来源可信
+                // event.origin 为发送消息的页面的域名
+                // 可以根据需要添加额外的验证逻辑，以确保消息来自预期的页面
+                if (event.origin !== url) {
+                    return;
+                }
+
+                // 获取传递过来的新的TempData值
+                var newTempDataValue = event.data;
+
+                // 在这里处理新的TempData值
+                console.log("收到新的TempData值:", newTempDataValue);
+            });
+        });
+        $(".delete").click(function (e) {
+            e.preventDefault(); // 防止默认链接行为
+            console.log("asdasdasdsa")
+            var itemId = $(this).data("id");
+            // 弹出确认对话框
+            var confirmDelete = confirm("確定要刪除 " + itemId + " 嗎？");
+
+            // 如果用户确认删除，则执行删除操作
+            if (confirmDelete) {
+                window.location.href = "@Url.Action("計畫表Delete")" + "?計畫表編號=" + itemId;
+            } else {
+                alert("刪除已取消")
+            }
+        });
+    });
+</script>

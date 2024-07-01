@@ -1,0 +1,203 @@
+﻿@model 南岩ERP.Models.HR_001_ModelsManager
+@{
+    ViewData["Title"] = "技能檢定卡";
+}
+<style>
+
+    table {
+        text-align: center;
+    }
+
+    .outer-container {
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        width: auto;
+        background: white;
+        flex-wrap: wrap;
+    }
+
+    .form-select{
+        width:200px;
+    }
+    
+</style>
+<a class="btn btn-danger" href="@Url.Action("index", "教育訓練")">返回</a>
+<h1>技能檢定卡</h1>
+
+@using (Html.BeginForm("技能檢定卡", "教育訓練", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{        <div class="outer-container justify-content-center">
+    @Html.DropDownListFor(m => m.部門, Model.部門, new { @class = "form-select", id = "部門名稱" })
+
+    <select id="員工編號" name="員工編號" class="form-select">
+        <option value="">請選擇</option>
+    </select>
+    <button class="w-auto form-control">
+        確定
+    </button>
+    </div>
+}
+<form method="post" action="/教育訓練/Download技能檢定卡" enctype="multipart/form-data">
+
+    <div class="outer-container justify-content-center flex-column align-items-center">
+        <table class="table-bordered w-50">
+            <tr>
+                <th colspan="6">
+                    南岩半導體股份有限公司技能檢定卡
+                </th>
+            </tr>
+            <tr>
+                <th colspan="6">
+                    Nanotech Certification Card-Test
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    姓名<br />
+                    Name
+                </td>
+                <td colspan="2" style="width:100px;">
+                    @Model.員工表.姓名
+                </td>
+                <td>
+                    工號<br />
+                    Serial number
+                </td>
+                <td colspan="2" style="width:100px;">
+                    @Model.員工表.員工編號
+                    @Html.EditorFor(m => m.員工表.員工編號, new { HtmlAttributes = new { hidden = "true" } })
+                    @Html.EditorFor(m => m.部門名稱, new { HtmlAttributes = new { hidden = "true"} })
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    站別<br />
+                    Process
+                </td>
+                <td colspan="5">
+                    檢定項目<br />
+                    Teat Item
+                </td>
+            </tr>
+            <tr>
+                <td style="height:100px;">
+                    @Model.職務名稱
+                </td>
+                <td style="text-align:left;" colspan="5">
+                    <ol>
+                        @foreach (var item in Model.文件列表)
+                        {
+                            <li style="list-style:decimal;">@item @Model.文件表.Where(m => m.文件編號 == @item).Select(m => m.文件名稱).First().ToString()</li>
+                        }
+                    </ol>
+
+
+                </td>
+            </tr>
+        </table>
+        <table class="table-bordered w-50">
+            <tr>
+                <th colspan="6">年      度</th>
+            </tr>
+            <tr>
+                @for (int i = 0; i < 6; i++)
+                {
+                    <td>@(DateTime.Now.Year + i)年</td>
+                }
+            </tr>
+            <tr style="height:80px;">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align:left;" colspan="6">
+                    備註：<br />
+                    <ol>
+                        <li>一、本檢定卡僅供紀錄人員所需檢定技能之項目及檢定結果資料不供其它用途使用。</li>
+                        <li>二、當年度技能檢定不合格者不得從事該站職務。</li>
+                        <li>三、檢定卡不得轉借供他人查核使用。</li>
+                        <li>四、人員技能檢定於每年十二月份由單位主管執行檢定並將結果送至管理部查核後蓋章核發。</li>
+                        <li>五、本卡遺失請儘速至管理部登記補發。</li>
+                    </ol>
+                    <span class="d-block text-end w-100 p-1">QP-03-001-11-C</span>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-primary">下載</button>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        var 部門名稱 = $('input[name="部門名稱"]').val();
+        var 選單預設 = $('input[name="員工表.員工編號"]').val();
+        console.log(部門名稱 + 選單預設)
+        $.ajax({
+            type: 'POST',
+            url: '/教育訓練/取得人員',
+            data: {
+                部門名稱: 部門名稱,
+            },
+            success: function (data) {
+                var selectList = $('#員工編號');
+                selectList.empty();
+                // 判断数据类型是否为数组
+                if (Array.isArray(data)) {
+                    // 遍历数组，并确保每个元素都包含 Value 和 Text 属性
+                    data.forEach(function (item) {
+                        if (item.hasOwnProperty('value') && item.hasOwnProperty('text')) {
+                            selectList.append($('<option></option>').val(item.value).text(item.text));
+                        }
+                    });
+                }
+                else {
+                    console.log('返回数据不是数组类型或格式不正确');
+                }
+                $('#員工編號').val(選單預設)
+                $('#部門名稱').val(@Model.員工表.部門編號)
+            },
+            error: function () {
+                alert('無法從數據庫獲取職位信息。');
+            }
+        });
+
+        $('#部門名稱').change(function () {
+            var 部門 = $(this).find(':selected').text();
+            console.log(部門);
+            $.ajax({
+                type: 'POST',
+                url: '/教育訓練/取得人員',
+                data: {
+                    部門名稱: 部門,
+                },
+                success: function (data) {
+                    var selectList = $('#員工編號');
+                    selectList.empty();
+                    // 判断数据类型是否为数组
+                    if (Array.isArray(data)) {
+                        // 遍历数组，并确保每个元素都包含 Value 和 Text 属性
+                        data.forEach(function (item) {
+                            if (item.hasOwnProperty('value') && item.hasOwnProperty('text')) {
+                                selectList.append($('<option></option>').val(item.value).text(item.text));
+                            }
+                        });
+                    }
+                    else {
+                        console.log('返回数据不是数组类型或格式不正确');
+                    }
+                },
+                error: function () {
+                    alert('無法從數據庫獲取職位信息。');
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,154 @@
+﻿@model IPagedList<南岩ERP.MisEFModels.機器設備硬碟備份紀錄>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+<html>
+<head>
+    @{
+        ViewData["Title"] = "DataBackup";
+    }
+    <style>
+        td .btn {
+            --bs-btn-padding-x: 0;
+            --bs-btn-padding-y: 0;
+            margin: 2px;
+            width: 40px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <a class="btn btn-danger" href="@Url.Action("Index","Mis")">返回</a>
+    @if (ViewBag.新增 > 0)
+    {
+        <a class="btn btn-success m-1" href="@Url.Action("EditDataBackup","Mis")">新增</a>
+    }
+    <h1>DataBackup</h1>
+    <div class="main-contain">
+        <div class="search">
+            @using (Html.BeginForm("DataBackup", "Mis", FormMethod.Get))
+            {
+                <div style=" display: flex;align-items: baseline;margin-bottom:10px;">
+
+                    內容查詢： @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", style = "width:120px;margin-right:10px;" })
+                    <button style="border-radius:5px;margin-top:5px;width:20px"><i class="fa-brands fa-sistrix"></i></button>
+                </div>
+            }
+        </div>
+        <table class="table-bordered">
+            <tr>
+                <th>
+                    設備名稱
+                </th>
+                <th>
+                    備份日期
+                </th>
+                <th>
+                    Ghost
+                </th>
+                <th>
+                    TrueImage
+                </th>
+                <th>
+                    備註
+                </th>
+                <th>
+
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr id="@item.流水號">
+                    <td>
+                        @Html.DisplayFor(m => item.設備名稱)
+                    </td>
+                    <td>
+                        @item.備份日期.ToString("yyyy/MM/dd")
+                    </td>
+                    <td>
+                        @if (item.Ghost == true)
+                        {
+                            <text> ✔️ </text>
+                        }
+                    </td>
+                    <td>
+                        @if (item.TrueImage == true)
+                        {
+                            <text> ✔️ </text>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.備註)
+                    </td>
+                    <td>
+                        @{
+
+                            if (ViewBag.修改 > 0)
+                            {
+                                <a class="btn btn-info" href="@Url.Action("EditDataBackup","Mis",new{流水號=item.流水號,equipmentName=item.設備名稱})">修改</a>
+                            }
+                            if (ViewBag.刪除 > 0)
+                            {
+                                <a href="#" class="delete-link btn btn-secondary" data-id="@item.流水號" data-name="@item.設備名稱">刪除</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>    
+    </div>
+
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("DataBackup", new { page = Model.PageNumber - 1, Search = ViewBag.CurrentFilter})" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li class="@(page == Model.PageNumber ? "page-item active" : "page-item")">
+                        <a class="page-link" href='@Url.Action("DataBackup", new { page, Search = ViewBag.CurrentFilter})'>
+                            @(page)
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    @{
+                        int nextPage = Model.PageNumber + 1;
+                        if (nextPage > Model.PageCount)
+                        {
+                            nextPage = Model.PageCount;
+                        }
+                    }
+                    <a class="page-link" href="@Url.Action("DataBackup", new { page = nextPage, Search = ViewBag.CurrentFilter})" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $(".delete-link").click(function (e) {
+                e.preventDefault(); // 防止默认链接行为
+
+                var itemId = $(this).data("id");
+                var itemName = $(this).data("name");
+
+                // 弹出确认对话框
+                var confirmDelete = confirm("確定要刪除 " + itemName + " 嗎？");
+                console.log("@Url.Action("DeleteDataBackup")" + "?流水號=" + itemId + "&設備名稱=" + itemName)
+                // 如果用户确认删除，则执行删除操作
+                if (confirmDelete) {
+                    window.location.href = "@Url.Action("DeleteDataBackup")" + "?流水號=" + itemId + "&設備名稱=" + itemName;
+                    
+                }
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+﻿@model 南岩ERP.Models.WIPEFModels.WIP_001_Models
+
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @{
+        ViewBag.Title = "選單頁面";
+    }
+    <style>
+        .maindiv input {
+            border-bottom: white 1px solid;
+            border-right: white 1px solid;
+        }
+        .readinput {
+            background-color: #ccffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="maindiv" style="background-color:#f0f0f0">
+        <div class="WIPhead">
+            <label>
+                <span>
+                    Traveler No
+                </span>
+
+                @Html.DropDownListFor(m => m.WIP_001_生產回報_流程卡號_SelectListItem, Model.WIP_001_生產回報_流程卡號_SelectListItem, "Select an ID", new { @class = "form-select", id = "流程卡號" })
+            </label>
+            <label>
+                <span>
+                    Process No
+                </span>
+                @Html.EditorFor(m => m.WIP_001_生產回報資料來源.生產站別, new { htmlAttributes = new {@class="readinput", id = "生產站別" } })
+            </label>
+        </div>
+        <div class="container">
+            @*詳情 Traveler No=null hide*@
+            <div class="container-div">
+                <table class="WIPtable">
+                    <tr>
+                        <th>
+                            <span>
+                                Traveler No
+                            </span>
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.流程卡號, new { htmlAttributes = new { @class = "readinput"}})
+                        </td>
+                        <th>
+                            Feedback No
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.回報序號, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>
+                                Process No
+                            </span>
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.生產站別, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>
+                                Cus No
+                            </span>
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.客戶編號, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>
+                                PO No
+                            </span>
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.訂單編號, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>
+                                Package
+                            </span>
+
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.成品小類別, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>Input Q'ty</span>
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.投入量, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>Defect Q'ty</span>
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.不良數, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>Output Q'ty</span>
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.產出量, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <span>Difference Q'ty</span>
+                        </th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.待產量, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            @{
+                var 生產站別 = ViewBag.生產站別 != null ? ViewBag.生產站別 as string : "";
+                if (生產站別 == "DB")
+                {
+                    <div class="container-div DB">
+                        <table class="WIPtable">
+                            <tr>
+                                <th>
+                                    No Wafer
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.NO_WAFER)
+                                </td>
+                                <th>
+                                    DB未結案數
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.DB未結案數, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                                <th>
+                                    Die_Shortage_Qty
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Die_Shortage_Qty, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    L/F 片數
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.片數)
+                                </td>
+                                <th>
+                                    Wafer入庫數量
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Wafer入庫數量, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                                <th>
+                                    Die_Shortage_Yield
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Die_Shortage_Yield, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    No Die
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.No_Die_量)
+                                </td>
+                                <th>
+                                    Wafer產出數量
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Wafer產出數量, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                                <th>
+                                    Die_Over_Qty
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Die_Over_Qty, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Leadframe Pad 顆數
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Leadframe_Pad顆數, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                                <th>
+                                    工單投入量
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.工單投入量, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                                <th>
+                                    Die_Over_Yield
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Die_Over_Yield, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                </th>
+                                <td>
+                                </td>
+                                <th>
+                                    DB產出量
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.DB產出量, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                                <th>
+                                    Mapping_File
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.Mapping_File, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                </th>
+                                <td>
+                                </td>
+                                <th>
+                                </th>
+                                <td>
+                                </td>
+                                <th>
+                                    DB待產量
+                                </th>
+                                <td>
+
+                                    @Html.EditorFor(m => m.WIP_001_生產回報資料來源.DB待產量, new { htmlAttributes = new { @class = "readinput" } })
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="container-div DB">
+                        <table class="WIPtable">
+                            <tr>
+                                <th>流程卡號</th>
+                                <th style="width:100%">Cassette_No</th>
+                            </tr>
+                            <tr>
+                                @*                     <td>
+                        @Html.EditorFor(m => m.WIP_001_生產回報_Cassette_NoResult.Select(m => m.流程卡號))
+                        </td>
+                        <td>
+                        @Html.EditorFor(m => m.WIP_001_生產回報_Cassette_NoResult.Select(m => m.Cassette_No))
+                        </td> *@
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="container-div DB" id="檔案存放區">
+                        <table class="WIPtable">
+                            <caption>檔案存放區</caption>
+                            <tr>
+                                <th>名稱</th>
+                                <th>修改日期</th>
+                                <th>類型</th>
+                                <th>大小</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="files">
+                        </div>
+                        <div id="drop_block" ondragover="javascript: drag_handler(event);" ondrop="javascript: drop_file(event);" class="upload-block">
+                            請將檔案拖曳到此...
+                            <div class="progress">
+                                <div id="upload_progress" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+        <div class="container">
+            <div class="container-div" id="每班產出明細">
+                <table class="WIPtable ScollerTable">
+                    <caption>每班產出明細 Shift Output Qty Detail</caption>
+                    <thead>
+                        <tr>
+                            <th>Work Date</th>
+                            <th>Shift</th>
+                            <th>Machine No</th>
+                            <th>OP No1</th>
+                            <th>OP No2</th>
+                            <th>Defect Q'ty</th>
+                            <th>Output Q'ty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.WIP_001_生產回報_產出資料)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.EditorFor(m => item.生產日期, new { htmlAttributes = new { type = "date" } })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(m => item.生產班別)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(m => item.生產機台)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(m => item.生產人員1)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(m => item.生產人員2)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(m => item.不良數量)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(m => item.產出數量)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <table class="WIPtable">
+                    <tr>
+                        <th>彈匣編號</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.彈匣編號)
+                        </td>
+                        <th>彈匣編號4</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.彈匣編號4)
+                        </td>
+                        <th>烘烤後可產生日期</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.烘烤後可生產日期, new { htmlAttributes = new {@class="readinput", type = "date", required = "true" } })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>彈匣編號2</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.彈匣編號2)
+                        </td>
+                        <th>彈匣編號5</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.彈匣編號5)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>彈匣編號3</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.彈匣編號3)
+                        </td>
+                        <th>彈匣編號6</th>
+                        <td>
+
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.彈匣編號6)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="container-div" id="不良明細區">
+                <table class="WIPtable">
+                    <caption>
+                        不良明細 Defect Q'ty Detail
+                    </caption>
+                    <tr>
+                        <th>
+                            Defect code
+                        </th>
+                        <th>
+                            Q'ty
+                        </th>
+                        <th>
+                            Defect reasons
+                        </th>
+                        <th>
+                            不良原因
+                        </th>
+                        <th>
+                            代號
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.WIP_001_生產回報_不良品)
+                    {
+                        <tr>
+                            <td>
+                                @Html.EditorFor(m => item.不良編號)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => item.不良數量)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => item.不良編號)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => item.不良編號)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => item.不良編號)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="container-div">
+                <table class="WIPtable">
+                    <tr>
+                        <th>
+                            標準封裝單站良率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準封裝單站良率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            標準封裝良率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準封裝良率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            標準Die_Shortage比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準Die_Shortage比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            標準Die_Over比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準Die_Over比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            標準Short比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準Short比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            標準CAP比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準CAP比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            封裝不良比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.封裝不良率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            要求封裝良率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.要求封裝良率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            要求單站良率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.要求單站良率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            要求Die_Shortage比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.要求Die_Shortage比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            要求Die_Over比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.要求Die_Over比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            要求封裝Hold比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.要求封裝Hold比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            標準FVI_Vision比率
+                        </th>
+                        <td>
+                            @Html.EditorFor(m => m.WIP_001_生產回報資料來源.標準FVI_Vision比率, new { htmlAttributes = new { @class = "readinput" } })
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('select').select2();
+            var 生產站別 = $('.生產站別').val();
+            function getQueryParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+            var id = getQueryParameter('流程卡號');
+            if (id !== null) {
+                var newOption = new Option(id, id, true, true);
+                $('#流程卡號').append(newOption).trigger('change');
+                $('.container').css('display', 'flex');
+            }
+
+
+            $('#流程卡號').change(function () {
+                var 流程卡號 = $(this).val();
+                console.log("abc" + 流程卡號);
+                window.location.href = '/WIP/AllView?流程卡號=' + 流程卡號 + '&生產站別=' + 生產站別;
+            });
+        });
+        //檔案拖曳上傳function
+        function drop_file(e) {
+
+            e.preventDefault();
+            var dropBlock = document.getElementById('drop_block');
+            var elProgress = document.getElementById('upload_progress');
+            var id = document.getElementById('流程卡號').value;
+            var objXhr = new XMLHttpRequest();
+            var files = e.dataTransfer.files;
+            var objForm = new FormData();
+            var sucess_count = 0;
+            console.log(id);
+            objXhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    var intComplete = (e.loaded / e.total) * 100 | 0;
+
+                    elProgress.innerHTML = intComplete + '%';
+                    elProgress.style.width = intComplete + '%';
+
+                    elProgress.setAttribute('aria-valuenow', intComplete);
+                }
+            }
+
+            objXhr.onload = function (e) {
+                dropBlock.className = dropBlock.className.replace(' dragover', '');
+                elProgress.className = elProgress.className.replace(' active', '');
+                var responseText = JSON.parse(objXhr.responseText);
+                alert('File uploaded successfully'); //接收網頁回傳結果
+                var fileName = responseText.fileName;
+                var fileType = responseText.fileType;
+                console.log(fileName);
+                console.log(responseText.filePath);
+                console.log(fileType);
+                if (fileType != 'img') {
+                    var filePath = '@Url.Content("~/images/FileType/")';
+                    filePath += fileType + '.png';
+                    $('.files').append('<div style="width:100px;">' + '<img style="width: 60px;" src =" ' + filePath + '"/>' + '<span style ="width:100px;display: block;"> ' + fileName + ' </span></div> ');
+                } else {
+                    var filePath1 = '@Url.Content("~/uploads/WIP/")';
+                    filePath1 += id + '/' + fileName;
+                    $('.files').append('<div style="width:100px;">' + '<img style="width: 60px;" src =" ' + filePath1 + '"/>' + '<span style ="width:100px;display: block;"> ' + fileName + ' </span></div> ');
+                }
+            }
+
+            objXhr.open('POST', '/WIP/Page_Load');
+
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].type.match('image.*')) {
+                    objForm.append('fileType', 'img');
+                }
+                else if (files[i].type.match('application/vnd.ms-excel') ||
+                    files[i].type.match('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+                    objForm.append('fileType', 'Excel');
+                } else if (files[i].type.match('text/plain')) {
+                    objForm.append('fileType', 'Txt');
+                } else if (files[i].type.match('application/msword') ||
+                    files[i].type.match('application/vnd.openxmlformats-officedocument.wordprocessingml.document')) {
+                    objForm.append('fileType', 'Word');
+                } else if (files[i].type.match('application/pdf')) {
+                    objForm.append('fileType', 'pdf');
+                }
+                else {
+                    objForm.append('fileType', 'Else');
+                }
+                objForm.append('files[]', files[i]);
+                objForm.append('save_file', "Y");
+            }
+            objForm.append('流程卡號', id);
+            objXhr.send(objForm);
+        }
+
+        //防止網頁預設動作，如自動開啟圖檔等..
+        function drag_handler(e) {
+            var dropBlock = document.getElementById('drop_block');
+            var elProgress = document.getElementById('upload_progress');
+            e.preventDefault();  //防止瀏覽器執行預設動作
+            if (!dropBlock.className.match('dragover')) {
+                dropBlock.className = dropBlock.className + ' dragover';
+            }
+
+            if (upload_progress.style.width != '0%') {
+                upload_progress.style.width = '0%';
+            }
+        }
+    </script>
+
+
+
+</body>
+</html>
+
+<script>
+    // $('#id').change(function () {//被選之後抓資料(改id)
+    //     var id = $(this).val();
+    //     console.log("abc"+id);
+    //     $.ajax({
+    //         url: '/WIP/AllView?id='+id,
+    //         type: 'Get',
+    //         data: {id:id},
+    //         success: function (data) {
+    //             $('.container').show();
+    //             console.log("123");
+    //         },
+    //         error: function (xhr) {
+    //             alert('Error: ' + xhr.responseText);
+    //             console.log("456");
+    //         }
+    //     })
+    // });
+
+    //   $('#流程卡號').select2({
+    //       ajax: {
+    //           url: '/WIP/Get流程卡號Data',
+    //           dataType: 'json',
+    //           data: function (params) {
+    //               return {
+    //                   生產站別: 生產站別,
+    //                   流程卡號: params.term,
+    //                   pageXOffset: params.term
+    //               };
+    //           },
+    //           processResults: function (data, params) {
+    //               params.pageXOffset = params.page || 1;
+
+    //               return {
+    //                   results: data.items,
+    //                   pagination: {
+    //                       SVGFEMorphologyElement: (params.page * 30) < data.totall_count
+    //                   }
+    //               };
+    //           },
+    //           Cache: true
+    //       },
+    //       placeholder: 'Search for an item',
+    //       minimumInputLength: 1,
+    //   });
+</script>

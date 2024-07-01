@@ -1,0 +1,361 @@
+﻿@model 南岩ERP.Models.職務說明Model
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        table {
+            width: 1200px;
+            margin-bottom: 20px;
+        }
+
+        td {
+            height: 25px;
+        }
+
+        tbody th {
+            writing-mode: vertical-lr;
+            text-align: center;
+        }
+
+        table .form-control {
+            background-color: #1987542b;
+        }
+
+        .btn-danger {
+            width: auto;
+        }
+
+        h2 .form-control {
+            display: inline-block;
+            width: 40%;
+        }
+
+        .header, .header th, .header tr {
+            border:3px solid;
+        }
+        
+    </style>
+</head>
+<body>
+    @{
+        ViewData["Title"] = "職務說明";
+    }
+
+    <a class="btn btn-danger" href="@Url.Action("index", "教育訓練")">返回</a>
+    <a href="FileList">檔案列表</a>
+    <h1>職務說明</h1>
+    <div class="main-contain">
+        @using (Html.BeginForm("Download職務說明", "Document", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "needs-validation", novalidate = "true"  }))
+        {
+            <div>
+                <table class="table-bordered header">
+                    <caption style="display:table-caption;text-align:center;caption-side:top">南岩半導體股份有限公司</caption>
+                    <thead style="text-align:center">
+                        <tr>
+                            <th>
+                                辦法名稱
+                            </th>
+                            <th>
+                                文件編號
+                            </th>
+                            <th>
+                                修訂日期
+                            </th>
+                            <th>
+                                頁次
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                管理責任審查
+                            </th>
+                            <th>
+                                附件三
+                            </th>
+                            <th>
+                                @Html.EditorFor(m => m.Date, new { htmlAttributes = new { type = "date", @class = "form-control text-center" } })
+                            </th>
+                            <th>
+                                1/6
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <table cellspacing="0" cellpadding="0" width="680" class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                <h2 align="center" class="">
+                                    @Html.EditorFor(m => m.部門, new { htmlAttributes = new { @class = "form-control", placeholder = "部門", required = "true" } })
+                                    -
+                                    @Html.EditorFor(m => m.職務, new { htmlAttributes = new { @class = "form-control", placeholder = "職務", required = "true" } })
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="invalid-feedback">
+                                        請輸入部門及職位
+                                    </div>
+                                </h2>
+                                <div>
+                                    <span>本職位為</span>
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.職位類別, "管理職位", new { @checked = "true" })
+                                        管理職位
+                                    </label>
+                                    <label>
+                                        @Html.RadioButtonFor(m => m.職位類別, "專業職位")
+                                        專業職位
+                                    </label>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th rowspan="24">
+                                應具備之條件、訓練及專業職能
+                            </th>
+                            <td colspan="2">
+                                1.學    歷
+                            </td>
+                            <td>
+                                @for (int i = 0; i < Model.學歷.Count; i++)
+                                {
+                                    <label>
+                                        @Html.HiddenFor(m => m.學歷[i].ID)
+                                        @Html.HiddenFor(m => m.學歷[i].Text)
+                                        @Html.CheckBoxFor(m => m.學歷[i].IsChecked)
+                                        @Model.學歷[i].Text
+                                    </label>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                2.科    系
+                            </td>
+                            <td>
+                                <input class="form-control" type="text" name="科系" value="企(工)管系、社會系、環安系或人資相關系所" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                3.經    歷
+                            </td>
+                            <td>
+
+                                <input class="form-control" type="text" name="經歷" value="大學畢且相關經驗2年以上、專科畢且相關經驗4年以上" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                4.語言能力
+                            </td>
+                            <td>
+                                <div>
+                                    @for (int i = 0; i < Model.語言.Count; i++)
+                                    {
+                                        <div class="d-flex">
+                                            <label>
+                                                @Html.HiddenFor(m => m.語言[i].ID)
+                                                @Html.HiddenFor(m => m.語言[i].Text)
+                                                @Html.CheckBoxFor(m => m.語言[i].IsChecked)
+                                                @Model.語言[i].Text
+                                            </label>
+
+                                            <div class="語言能力" id="@Model.語言[i].Text">
+                                                <span>(</span>
+
+                                                <label>
+                                                    @Html.CheckBoxFor(m => m.語言[i].語言能力.聽)
+                                                    聽
+                                                </label>
+                                                <label>
+                                                    @Html.CheckBoxFor(m => m.語言[i].語言能力.說)
+                                                    說
+                                                </label>
+                                                <label>
+                                                    @Html.CheckBoxFor(m => m.語言[i].語言能力.讀)
+                                                    讀
+                                                </label>
+                                                <label>
+                                                    @Html.CheckBoxFor(m => m.語言[i].語言能力.寫)
+                                                    寫
+                                                </label>
+
+                                                <span>)</span>
+                                            </div>
+
+
+                                            <br />
+                                        </div>
+                                    }
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                5.專業證照
+                            </td>
+                            <td>
+                                <input name="專業證照" class="form-control" type="text" value="急救人員；防火管理員；勞安乙級管理員" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                6.人格特質
+                            </td>
+                            <td>
+                                <div>
+                                    @for (int i = 0; i < Model.人格特質.Count; i++)
+                                    {
+                                        <label>
+                                            @Html.HiddenFor(m => m.人格特質[i].ID)
+                                            @Html.HiddenFor(m => m.人格特質[i].Text)
+                                            @Html.CheckBoxFor(m => m.人格特質[i].IsChecked)
+                                            @Model.人格特質[i].Text
+                                        </label>
+                                        @if (i == 7)
+                                        {
+                                            <br />
+                                        }
+                                    }
+
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" rowspan="7">
+                                7.教育訓練
+                            </td>
+                            <td>
+                                <input name="教育訓練" class="form-control" type="text" value="新進人員講習(ESD、RoHs管理與查驗、GP)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="教育訓練" class="form-control" type="text" value="公司管理規章解說" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="教育訓練" class="form-control" type="text" value="勞工安全衛生教育訓練" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="教育訓練" class="form-control" type="text" value="職業安全衛生管理人員訓練" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="教育訓練" class="form-control" type="text" value="防災急救訓練" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="教育訓練" class="form-control" type="text" value="ISO相關條文及規範說明" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="11" style="text-orientation:upright;">
+                                8.專業職能
+                            </th>
+
+                            <th rowspan="7">
+                                技術面(含工具操作)
+                            </th>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="具備固定資產帳務管理能力" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="文書編輯及報表製作能力" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="具雜項請、採購及驗收等作業能力" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="熟悉固定資產編號及編號原則及盤點能力" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="具資訊系統操作能力" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="EXCEL、WORD、POWERPOINT等辦公室軟體" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="技術面" class="form-control" type="text" value="熟悉勞工安全衛生相關法令及相關業務執行能力" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th rowspan="4">
+                                專業知識
+                            </th>
+                            <td>
+                                <input name="專業知識" class="form-control" type="text" value="熟悉勞工安全衛生相關法令及相關業務" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="專業知識" class="form-control" type="text" value="熟悉ISO相關條文及規範" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="專業知識" class="form-control" type="text" value="熟悉福委會相關法令及相關業務" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="form-control btn btn-primary"style="width:auto;" asp-action="Download職務說明" asp-controller="Document">下載</button>
+            </div>
+        }
+
+    </div>
+</body>
+</html>
+<script>
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>

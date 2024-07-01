@@ -1,0 +1,164 @@
+﻿@model 南岩ERP.Models.ISO文件ModelManager
+<html>
+<head>
+    <style>
+        body {
+            -moz-user-select: none;
+        }
+
+        .list {
+            display: block;
+        }
+
+        .list td{
+            padding:0 5px;
+        }
+            .list li {
+                cursor: pointer;
+            }
+
+        .文件List > li:hover {
+            background-color: rgba(0,0,0,.2);
+        }
+        /*   .list li + li span::after {
+                                        content: '';
+                                        position: absolute;
+                                        border-top: 200px solid rgb(0,255,255);
+                                        left: 10px;
+                                        right: 10px;
+                                        top: 0;
+                                    } */
+
+        .list ul {
+            display: none;
+        }
+
+        .list li input[type=checkbox]:checked ~ ul {
+            display: block;
+        }
+
+        input[type=checkbox]:checked + label {
+            transform: rotate(90deg)
+        }
+
+        .list span {
+            padding-right: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <a class="btn btn-danger" href="@Url.Action("index", "教育訓練")">返回</a>
+        @if (ViewBag.新增 > 0)
+        {
+             <a class="btn btn-success" href="@Url.Action("ISO_Create","教育訓練")">新增</a>
+        }
+    </div>
+        <div class="main-contain">
+             <div class="search" style="margin-bottom:50px;">
+        @using (Html.BeginForm("ISO文件", "教育訓練", FormMethod.Get))
+        {
+            <div style=" display: flex;align-items: baseline;">
+                內容查詢： @Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", style = "width:120px;margin-right:10px;" })
+            </div>
+        }
+    </div>
+
+    <ul class="文件List list" style="list-style-type:square;" >
+        
+
+        @foreach (var item in Model.文件表)
+        {
+            
+            var count = 1;// 設定列數
+
+            <li id="@item.文件編號" style="padding:5px 0;">
+                <span>@item.文件編號</span>
+                <span style="padding-left:30px;width:500px;" onselectstart="return false;">
+                    @item.文件名稱
+                </span>
+                <input type="checkbox" id="@item.文件名稱" hidden />
+                <label for="@item.文件名稱">></label>
+                <ul class="list" style="border-top:1px solid #000">
+                    <li style="padding-left:50px;" >
+                        <table>
+                            <tr >
+                                @foreach (var a in Model.職務文件.Where(m=>m.文件編號==item.文件編號).Select(m => m.部門編號).Distinct())
+                                {
+                                    <td>@Model.部門.Where(m=>m.部門編號==a).Select(m=>m.部門名稱).FirstOrDefault()</td>
+                                }
+                            </tr>
+                            <tr>
+                                 @foreach (var a in Model.職務文件.Where(m=>m.文件編號==item.文件編號))
+                                {
+                                    <td>@a.職務</td>
+                                    count++;
+                                        if (count == 5)
+                                        {
+                                        @:</tr><tr>
+                                            count = 1;
+                                        }
+                                }
+                            </tr>
+                            <tr >
+                                @if(item.筆試 == 1){
+                                     <td>筆試</td>
+                                }
+                                @if(item.口試 == 1){
+                                     <td>口試</td>
+                                }
+                                @if(item.實作 == 1){
+                                     <td>實作</td>
+                                }   
+                            </tr>
+                        </table>
+                            @if (ViewBag.修改 > 0)
+                            {
+                                <a class="btn btn-info" href="@Url.Action("ISO_Edit","教育訓練",new{文件編號=@item.文件編號})">編輯</a>
+                            }
+                    </li>
+                </ul>
+            </li>
+
+        } 
+    </ul>
+        </div>
+   
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#Search').on("input", function () {
+            var searchText = $(this).val().toLowerCase(); // 將搜尋文字轉成小寫
+            $(".文件List > li").each(function () {
+                var li = $(this);
+                var showLi = false;
+                var liText = li.text().toLowerCase(); // 在這裡定義 tdText
+                if (liText.includes(searchText)) {
+                    showLi = true;
+                }
+                if (showLi) {
+                    li.show();
+                } else {
+                    li.hide();
+                }
+            });
+        });
+
+            $('li').click(function () {
+                var Id = $(this).attr("id");
+                $('#' + Id + ' input[type=checkbox]').prop("checked", function (i, val) {
+                    return !val; // 切換 checkbox 狀態
+                });
+            });
+
+
+    });
+</script>
+
+</body>
+</html>

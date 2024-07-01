@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "南岩半導體股份有限公司";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/南岩ERP.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/fd61ec0306.js" crossorigin="anonymous"></script>
+
+    <style>
+        .login {
+            z-index: 0;
+            position: relative;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-around;
+            align-items: baseline;
+            position: relative;
+            margin: 0 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .main_view {
+            padding: 10px 32px;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .form {
+            backdrop-filter: blur(100px);
+            border: 2px solid rgba(0,0,0,.2);
+            padding: 10px;
+            border-radius: 5%;
+            box-shadow: 0 0 10px rgba(0,0,0,.2);
+            background: transparent;
+            text-align: center;
+            width: 360px;
+        }
+
+        .main {
+            /*  background-image: url("https://picsum.photos/1400/1400?random=10");*/
+            background-color: rgb(178, 178, 178);
+            background-size: cover;
+            height: 100vh;
+            margin: 0px;
+        }
+
+        h1 {
+            font-size: 60px;
+            /*background-color: gray;*/
+            text-align: center;
+            border-radius: 5px;
+            backdrop-filter: blur(20px);
+        }
+
+        .btn {
+            background-color: rgba(255,255,255,.8);
+        }
+
+        h4 {
+            padding: 10px
+        }
+
+        .LoginInput {
+            width: 100%;
+            padding: 0.67em 1em;
+            padding-left: 2.67em;
+        }
+
+        .LoginIcon {
+            position: absolute;
+            top: 14px;
+            right: auto;
+            left: 14px;
+        }
+    </style>
+</head>
+<div class="main">
+    <div class="login" style="display: flex;align-items: center; flex-direction: column">
+        <img src="~/images/LOGO.jpg" style="margin-top: 50px;" />
+        <h1><b>南岩半導體股份有限公司</b></h1>
+        <h2><b><font color="blue">Nanotech Semiconductor Corp.</font></b></h2>
+        <div class="form">
+            <h4><b><font color="White">使用者登入 User Login</font></b></h4>
+            <span>電腦名稱：@ViewBag.電腦名稱</span>
+            @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "needs-validation", novalidate="true" }))
+            {
+                @Html.AntiForgeryToken()
+                <font color="red">@ViewBag.ErrorMessage</font>
+                <div class="form-horizontal">
+
+                    <div class="main_view">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group content">
+                            <i class="fa-solid fa-user LoginIcon"></i>
+                            <input class="form-control LoginInput" type="text" id="account" name="account" placeholder="員工編號" required />
+                            <div class="invalid-feedback">
+                                請輸入帳號
+                            </div>
+                        </div>
+                        <div class="form-group content">
+                            <i class="fa-solid fa-lock LoginIcon" for="password"></i>
+                            <input class="form-control LoginInput" type="password" name="password" id="password" placeholder="密碼" required />
+                            <div class="invalid-feedback">
+                                請輸入密碼
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input class="btn" type="submit" value="登入" />
+                            <input class="btn" onclick="window.close();" value="結束" type="button">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+@*登入時顯示名稱*@
+@*<script>
+    $(document).ready(function () {
+        $("#account").change(function () {
+            var ID = $(this).val();
+            $.ajax({
+                        type: "post",
+                        url: '@Url.Action("GetID", "User")',
+                data: { ID: ID },
+                success: function (result) {
+                    $("#CNM").html(result);
+                            console.log(result);
+                        },
+                        error: function (xhr, status) {
+                            console.log("上傳失敗");
+                        }
+                    });
+        });
+    });
+
+
+</script>*@
+

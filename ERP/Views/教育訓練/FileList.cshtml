@@ -1,0 +1,36 @@
+﻿@model 南岩ERP.Models.HR_001_ModelsManager
+@{
+    ViewData["Title"] = "FileList";
+}
+
+<h1>FileList</h1>
+<a class="btn btn-danger" href="職務說明">返回</a>
+@using (Html.BeginForm("FileUpload", "教育訓練", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" value="確定" />
+}
+<div>
+    <table class="m-2 table table-bordered">
+
+        <tr>
+            <th>檔案名稱</th>
+            <th>
+
+            </th>
+        </tr>
+        @foreach (var item in Model.教育訓練檔案)
+        {
+            <tr>
+                <td>
+                    @item.檔案名稱
+                </td>
+                <td>
+                    @Html.ActionLink("下載", "DownLoads", "Document", new { FileName = item.檔案名稱 }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

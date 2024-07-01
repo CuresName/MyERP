@@ -1,0 +1,255 @@
+﻿@model 南岩ERP.Models.ISO文件ModelManager
+@using Newtonsoft.Json
+
+<html>
+<head>
+    <style>
+
+        .DepartmentList {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .Department {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #000;
+            width: 200px;
+            border-radius: 3px;
+            position: relative;
+        }
+
+
+            .Department > p::after {
+                content: '';
+                position: absolute;
+                border-top: 1px solid rgba(0,0,0,.4);
+                left: 10px;
+                right: 10px;
+                top: 40px;
+            }
+
+        #ISO_部門 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+            #ISO_部門 div {
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #000;
+                width: 200px;
+                border-radius: 3px;
+                position: relative;
+            }
+
+                #ISO_部門 div > p::after {
+                    content: '';
+                    position: absolute;
+                    border-top: 1px solid rgba(0,0,0,.4);
+                    left: 10px;
+                    right: 10px;
+                    top: 40px;
+                }
+
+        input[type=checkbox] {
+            margin-right: 2px;
+        }
+
+        .iso_NameBox {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .iso_NameBox input{
+            width:30%;
+            margin-top:10px;
+        }
+
+        .out-container{
+            margin: 50px;
+            border:1px solid;
+            border-radius:10px;
+            background-color:white;
+            padding:25px;
+        }
+    </style>
+</head>
+<body>
+    <a class="btn btn-danger" href="@Url.Action("ISO文件","教育訓練")">返回</a>
+
+    @using (Html.BeginForm("ISOUpdata", "教育訓練", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="out-container" >
+            <input class="form-control" hidden name="原文件編號" value="@Model.文件表.Select(m=>m.文件編號).First().ToString()" />
+            <div class="iso_NameBox">
+                <label for="文件編號">文件編號</label>
+                <input class="form-control" id="文件編號" name="文件編號" value="@Model.文件表.Select(m=>m.文件編號).First().ToString()" />
+            </div>
+            <div class="iso_NameBox">
+                <label for="文件名稱">文件名稱</label>
+                <input class="form-control" id="文件名稱" name="文件名稱" value="@Model.文件表.Select(m=>m.文件名稱).First().ToString()" />
+            </div>
+            <div id="ISO_部門">
+            </div>
+            <div id="ISO_適用職務">
+            </div>
+            <div id="ISO_檢定方式">
+                <span>檢定方式</span>
+                <input name="檢定方式" type="checkbox" value="筆試" id="checkbox_筆試" @((@Model.文件表.Any(m => m.筆試 == 1) ? "checked" : "")) />
+                <label for="checkbox_筆試">筆試</label>
+                <input name="檢定方式" type="checkbox" value="口試" id="checkbox_口試" @((@Model.文件表.Any(m => m.口試 == 1) ? "checked" : "")) />
+                <label for="checkbox_口試">口試</label>
+                <input name="檢定方式" type="checkbox" value="實作" id="checkbox_實作" @((@Model.文件表.Any(m => m.實作 == 1) ? "checked" : "")) />
+                <label for="checkbox_實作">實作</label>
+            </div>
+        </div>
+        <br />
+        <div class="out-container">
+            <label>使用部門-職位</label>
+            <div class="" style="text-align:center" id="部門">
+                
+                @{
+                    foreach (var item in Model.部門)
+                    {
+                        <input name="部門" type="checkbox" value="@item.部門名稱" id="checkbox_@item" @((@Model.職務文件.Any(m => m.部門編號 == item.部門編號) ? "checked" : "")) />
+                        <label for="checkbox_@item.部門名稱">@item.部門名稱</label>
+                    }
+                }
+            </div>
+            <div class="DepartmentList" id="職務">
+            </div>
+        </div>
+        
+        @if (ViewBag.修改 > 0)
+        {
+            <button class="btn btn-primary">確認</button>
+        }
+    }
+    @if (ViewBag.刪除 > 0)
+    {
+@*<a id="@Model.文件表.Select(m=>m.文件編號).First().ToString()" onclick="event.stopPropagation()" data-id="@Model.文件表.Select(m => m.文件編號)" href="#" class="btn btn-secondary delete">刪除</a>*@       
+
+@*<a href="@Url.Action("ISO_Delete","教育訓練",new{文件編號=@Model.文件表.Select(m=>m.文件編號)}) @((@Model.文件表.Any(m=>m.文件編號==null)?"hidden":""))">刪除</a> *@
+    }
+    <script>
+        $(document).ready(function () {
+            if (@ViewBag.修改> 0) {
+                $('input').prop("disabled", false);
+            } else {
+                $('input').prop("disabled", true);
+            }
+            var 部門 = $('#部門 input[type="checkbox"]:checked').val();
+            var 部門S = document.getElementsByName("部門");
+            var check_value = [];
+            for (i in 部門S) {
+                if (部門S[i].checked)
+                    check_value.push(部門S[i].value);
+            }
+            var 文件編號 = $('input[name="文件編號"]').val();
+            var 適用職務 = @Html.Raw(JsonConvert.SerializeObject(Model.職務文件.Where(m => m.文件編號 == @Model.文件表.Select(m => m.文件編號).FirstOrDefault()).Select(m => m.職務).ToList()));
+            console.log(適用職務);
+            var 職務清單 = 適用職務;
+            console.log(職務清單);
+            console.log(check_value);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("取得職務預設", "教育訓練")',
+                data: {
+                    部門: check_value
+                },
+                success: function (data) {
+                    var checkboxList = $('#職務');
+                    for (var i = 0; i < check_value.length; i++) {
+                        var departmentName = check_value[i];
+                        checkboxList.append("<div class='Department' name='部門' id='" + departmentName + "List'><p id=" + departmentName + ">" + departmentName + "</p></div>");
+                        $('#ISO_部門').append("<div id='ISO_" + departmentName + "'><p>" + departmentName + "</p></div>");
+
+                        $.each(data[departmentName], function (index, value) {
+                            var isChecked = 職務清單.indexOf(value) !== -1 ? "checked" : "";
+                            console.log(value);
+                            console.log(職務清單.indexOf(value) !== -1);
+                            $('#' + departmentName + 'List').append("<input name='職務' type='checkbox' value='" + value + "' id='" + departmentName + value + "'" + isChecked + "/><label for='" + departmentName + value + "'>" + value + "</label><br>");
+                            if (職務清單.indexOf(value) !== -1) {
+                                $('#ISO_' + departmentName).append("<span id=ISO_" + value + ">" + value + " </span><br/>")
+                                console.log("cooooooooooool");
+                            }
+
+                        });
+
+                    }
+                },
+                error: function () {
+                    alert('無法從資料庫獲取職務信息。');
+                }
+            });
+
+            $('#部門 input[type="checkbox"]').change(function () {
+                var 部門 = $(this).val(); // 取得選中的部門值
+                var 是否選中 = $(this).prop('checked');
+                console.log(部門, 是否選中)
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ISO取得職務", "教育訓練")',
+                    data: {
+                        部門: 部門
+                    },
+                    success: function (data) {
+                        var checkboxList = $('#職務');
+                        if (是否選中) {
+                            checkboxList.append("<div class='Department' name='部門' id='" + 部門 + "List'><p>" + 部門 + "</p></div>")
+                            $.each(data, function (index, value) {
+                                var isChecked = 職務清單.indexOf(value) !== -1 ? "checked" : "";
+                                $('#' + 部門 + 'List').append("<input name='職務' type='checkbox' value='" + value + "' id='" + 部門 + value + "'" + isChecked + "/><label for='" + 部門 + value + "'>" + value + "</label><br>");
+                                if (職務清單.indexOf(value) !== -1) {
+                                    $('#ISO_' + 部門).append("<span id=ISO_" + value + ">" + value + " </span>")
+
+                                }
+                            });
+                        } else {
+                            $('#' + 部門 + 'List').remove();
+                        }
+
+                    },
+                    error: function () {
+                        alert('無法從資料庫獲取職務信息。');
+                    }
+                });
+                var isChecked = $(this).prop("checked");
+                if (isChecked) {
+                    $('#ISO_部門').append("<div id=ISO_" + 部門 + "><p>" + 部門 + "</p></div>")
+                } else {
+                    $('#ISO_' + 部門 + '').remove();
+                }
+            });
+
+            $(document).on('change', '#職務 input[type="checkbox"]', function () {
+                var 職務 = $(this).val();
+                var isChecked = $(this).prop("checked");
+                var 部門Text = $(this).closest(".Department").find("p").text();
+
+                if (isChecked) {
+                    $('#ISO_' + 部門Text).append("<span id=ISO_" + 職務 + ">" + 職務 + "</span><br/>")
+                } else {
+                    $('#ISO_' + 職務).next('br').addBack().remove();
+                }
+            });
+
+            $(".delete").click(function (e) {
+                e.preventDefault(); // 防止默认链接行为
+                console.log("asdasdasdsa")
+                var itemId = $(this).data("id");
+                // 弹出确认对话框
+                var confirmDelete = confirm("確定要刪除 " + itemId + " 嗎？");
+
+                // 如果用户确认删除，则执行删除操作
+                if (confirmDelete) {
+                    window.location.href = "@Url.Action("ISO_Delete", "教育訓練")" + "?文件編號=" + itemId;
+                } else {
+                    alert("刪除已取消")
+                }
+            });
+        });
+    </script>
+</body>
+</html>

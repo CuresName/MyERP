@@ -1,0 +1,42 @@
+﻿<html>
+<head>
+    @{
+        ViewData["Title"] = "Index";
+    }
+    <link href="~/css/MenuStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>教育訓練</h1>
+    <div class="d-flex">
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("訓練基準表", "教育訓練", new { 部門 = 800,職務名稱="SALES"})">訓練基準表</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("技能檢定表", "教育訓練",new{員工編號="095031"})">技能檢定表</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("MultiSkillTestTable", "教育訓練")">MultiSkillTestTable</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("技能檢定卡", "教育訓練",new{員工編號="095031"})">技能檢定卡</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("職務說明", "教育訓練")">職務說明</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("ISO文件", "教育訓練")">ISO文件</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("申請表清單", "教育訓練")">申請表</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-info" href="@Url.Action("計畫表清單", "教育訓練")">計畫表清單</a>
+        </div>
+        <div>
+            <a class="menu-btn btn btn-danger" href="@Url.Action("Menu", "Menu")">返回</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
