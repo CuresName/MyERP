@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\\u7269\u8CEA\u8ABF\u67E5\u8A18\u9304\\\u5EE0\u5546\u672A\u56DE\u8986\u6E05\u55AE.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\\u7269\u8CEA\u8ABF\u67E5\u8A18\u9304\\\u5EE0\u5546\u672A\u56DE\u8986\u6E05\u55AE.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\_ViewStart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\_ViewStart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\\u6559\u80B2\u8A13\u7DF4\\\u6280\u80FD\u6AA2\u5B9A\u5361.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -122,11 +122,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{dcc4ea97-1c0c-482b-b205-e541c0df9728}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "\u5EE0\u5546\u672A\u56DE\u8986\u6E05\u55AE.cshtml",
               "DocumentMoniker": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\\u7269\u8CEA\u8ABF\u67E5\u8A18\u9304\\\u5EE0\u5546\u672A\u56DE\u8986\u6E05\u55AE.cshtml",
               "RelativeDocumentMoniker": "Views\\\u7269\u8CEA\u8ABF\u67E5\u8A18\u9304\\\u5EE0\u5546\u672A\u56DE\u8986\u6E05\u55AE.cshtml",
@@ -139,20 +147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "Views\\_ViewImports.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T08:31:51.633Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
@@ -160,21 +155,32 @@
               "RelativeToolTip": "Views\\_ViewStart.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T08:31:50.055Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T08:31:50.055Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAwwBIAAAAxAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-01T08:26:31.234Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\kevin.NANOTECH\\Documents\\GitHub\\MyERP\\ERP\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-01T08:31:51.633Z"
             },
             {
               "$type": "Document",
@@ -186,8 +192,7 @@
               "RelativeToolTip": "Views\\\u6559\u80B2\u8A13\u7DF4\\\u8077\u52D9\u8AAA\u660E.cshtml",
               "ViewState": "AQIAAC0AAAAAAAAAAAAQwDoAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T08:22:13.425Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T08:22:13.425Z"
             },
             {
               "$type": "Document",
@@ -199,8 +204,7 @@
               "RelativeToolTip": "Views\\\u6559\u80B2\u8A13\u7DF4\\\u6280\u80FD\u6AA2\u5B9A\u8868.cshtml",
               "ViewState": "AQIAAGUAAAAAAAAAAAAMwHAAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:20:50.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:20:50.737Z"
             },
             {
               "$type": "Document",
@@ -212,8 +216,7 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AQIAADkBAAAAAAAAAAAMwEQBAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:20:10.56Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:20:10.56Z"
             },
             {
               "$type": "Document",
@@ -225,8 +228,7 @@
               "RelativeToolTip": "Views\\Mis\\EditSoftware.cshtml",
               "ViewState": "AQIAABoAAAAAAAAAAAAMwCYAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:20:09.873Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:20:09.873Z"
             },
             {
               "$type": "Document",
@@ -238,8 +240,7 @@
               "RelativeToolTip": "Views\\Mis\\Detail.cshtml",
               "ViewState": "AQIAACUAAAAAAAAAAAAMwDQAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:19:59.743Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:19:59.743Z"
             },
             {
               "$type": "Document",
@@ -251,8 +252,7 @@
               "RelativeToolTip": "Views\\Menu\\Menu.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:19:52.593Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:19:52.593Z"
             },
             {
               "$type": "Document",
@@ -264,8 +264,7 @@
               "RelativeToolTip": "Views\\User\\Login.cshtml",
               "ViewState": "AQIAAEwAAAAAAAAAAAAMwFcAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:19:38.913Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:19:38.913Z"
             },
             {
               "$type": "Document",
@@ -277,8 +276,7 @@
               "RelativeToolTip": "Views\\\u6559\u80B2\u8A13\u7DF4\\\u6280\u80FD\u6AA2\u5B9A\u5361.cshtml",
               "ViewState": "AQIAACUAAAAAAAAAAAAMwDAAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-01T03:19:32.876Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:19:32.876Z"
             },
             {
               "$type": "Document",
@@ -290,8 +288,7 @@
               "RelativeToolTip": "Models\\\u6559\u80B2\u8A13\u7DF4EFModels\\devContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:19:19.261Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:19:19.261Z"
             },
             {
               "$type": "Document",
@@ -303,8 +300,7 @@
               "RelativeToolTip": "TESTModels\\TESTEFModels\\WIP_001_\u6D41\u7A0B\u5361\u8CC7\u6599_\u6A5F\u53F0\u7DE8\u865FResult.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:49.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:49.818Z"
             },
             {
               "$type": "Document",
@@ -316,8 +312,7 @@
               "RelativeToolTip": "TESTModels\\TESTEFModels\\WIP_001_\u751F\u7522\u56DE\u5831_Cassette_NoResult.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:47.177Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:47.177Z"
             },
             {
               "$type": "Document",
@@ -329,8 +324,7 @@
               "RelativeToolTip": "Models\\WIPEFModels\\WIP_001_\u751F\u7522\u56DE\u5831_Cassette_NoResult.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:34.469Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:34.469Z"
             },
             {
               "$type": "Document",
@@ -342,8 +336,7 @@
               "RelativeToolTip": "Models\\WIPEFModels\\WIP_001_Models.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:30.548Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:30.548Z"
             },
             {
               "$type": "Document",
@@ -355,8 +348,7 @@
               "RelativeToolTip": "Models\\WIPEFModels\\WIPContextProcedures.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:26.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:26.367Z"
             },
             {
               "$type": "Document",
@@ -368,8 +360,7 @@
               "RelativeToolTip": "Models\\WIPEFModels\\WIPContext.Functions.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:19.947Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:19.947Z"
             },
             {
               "$type": "Document",
@@ -381,8 +372,7 @@
               "RelativeToolTip": "Models\\WIPEFModels\\IWIPContextProcedures.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAAEAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:15.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:15.227Z"
             },
             {
               "$type": "Document",
@@ -394,8 +384,7 @@
               "RelativeToolTip": "Models\\WIPEFModels\\DbContextExtensions.cs",
               "ViewState": "AQIAADMAAAAAAAAAAAAAAAsAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:09.641Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:09.641Z"
             },
             {
               "$type": "Document",
@@ -407,8 +396,7 @@
               "RelativeToolTip": "Models\\TableTest\\TableTestView.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:06.572Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:06.572Z"
             },
             {
               "$type": "Document",
@@ -420,8 +408,7 @@
               "RelativeToolTip": "Models\\EFModels\\SYS_RP_\u89D2\u8272\u9A57\u8B49_Result.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:03.322Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:03.322Z"
             },
             {
               "$type": "Document",
@@ -433,8 +420,7 @@
               "RelativeToolTip": "Models\\EFModels\\SYS_MENU_\u9078\u55AE\u9A57\u8B49_Result.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:18:00.686Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:18:00.686Z"
             },
             {
               "$type": "Document",
@@ -446,8 +432,7 @@
               "RelativeToolTip": "Models\\EFModels\\MA_005_\u4F9B\u61C9\u5546\u8CC7\u6599\u67E5\u8A62Result.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:17:54.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:17:54.706Z"
             },
             {
               "$type": "Document",
@@ -459,8 +444,7 @@
               "RelativeToolTip": "Models\\TableTest\\tableContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:16:16.567Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:16:16.567Z"
             },
             {
               "$type": "Document",
@@ -472,8 +456,7 @@
               "RelativeToolTip": "Models\\EFModels\\erpEntities.Functions.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAAAAUAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:16:13.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:16:13.895Z"
             },
             {
               "$type": "Document",
@@ -485,8 +468,7 @@
               "RelativeToolTip": "Models\\EFModels\\erpEntities.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-01T03:15:34.569Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-01T03:15:34.569Z"
             }
           ]
         }
